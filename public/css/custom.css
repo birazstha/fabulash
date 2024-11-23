@@ -1,0 +1,37 @@
+.remove-order {
+    display: flex;
+    justify-content: end;
+    margin-top: 3px;
+}
+
+.remove-order i {
+    padding: 9px;
+    height: 35px;
+    cursor: pointer;
+    color: red;
+}
+
+.parent-icon,
+.icons i {
+    /* border: 1px solid blue; */
+    width: 1.4rem;
+}
+
+.test {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+table td {
+    text-align: center;
+}
+
+td a {
+    color: black;
+}
+
+td a:hover {
+    color: rgb(255, 30, 30);
+    transition: all 0.3s;
+}

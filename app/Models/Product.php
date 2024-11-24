@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Category extends Model
+class Product extends Model
 {
     use HasFactory, LogsActivity;
     public $timestamps = true;
@@ -23,23 +23,23 @@ class Category extends Model
             ->setDescriptionForEvent(fn(string $eventName) => "This model has been {$eventName}");
     }
 
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
+
     public function subCategories()
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
     }
 
-    public function parent()
+    public function subCategory()
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(Category::class);
     }
 
-    public function scopeActive($query)
+    public function user()
     {
-        return $query->where('status', true);
-    }
-
-    public function scopeRank($query)
-    {
-        return $query->orderBy('rank', 'ASC');
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 }

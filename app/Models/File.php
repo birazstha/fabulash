@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
-class Category extends Model
+class File extends Model
 {
     use HasFactory, LogsActivity;
-    public $timestamps = true;
 
+    public $timestamps = true;
     public $guarded = ['id'];
 
-    protected static $logName = 'Category';
+    protected static $logName = 'File';
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -23,23 +23,8 @@ class Category extends Model
             ->setDescriptionForEvent(fn(string $eventName) => "This model has been {$eventName}");
     }
 
-    public function subCategories()
+    public function fileable()
     {
-        return $this->hasMany(self::class, 'parent_id', 'id');
-    }
-
-    public function parent()
-    {
-        return $this->belongsTo(Category::class, 'parent_id');
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('status', true);
-    }
-
-    public function scopeRank($query)
-    {
-        return $query->orderBy('rank', 'ASC');
+        return $this->morphTo();
     }
 }

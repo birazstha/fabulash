@@ -1,7 +1,6 @@
-<script src="{{ asset('system/assets/plugins/jquery/jquery.min.js') }}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="{{ asset('system/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
 <script>
     $.widget.bridge('uibutton', $.ui.button)
 </script>
@@ -23,6 +22,22 @@
 <script src="{{ asset('system/assets/dist/js/adminlte.js') }}"></script>
 
 <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.2.0/jquery.magnific-popup.min.js"
+    integrity="sha512-fCRpXk4VumjVNtE0j+OyOqzPxF1eZwacU3kN3SsznRPWHgMTSSo7INc8aY03KQDBWztuMo5KjKzCFXI/a5rVYQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{{-- Magnific Popup --}}
+<script>
+    $(document).ready(function() {
+        $('.image-link').magnificPopup({
+            type: 'image'
+        });
+    });
+</script>
+
 
 <script>
     ClassicEditor

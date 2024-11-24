@@ -39,4 +39,9 @@ class SubCategoryController extends ResourceController
     {
         return 'sub-category';
     }
+
+    public function getSubCategory(Request $request)
+    {
+        return $this->service->getSubCategory($request);
+    }
 }

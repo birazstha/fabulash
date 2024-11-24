@@ -11,6 +11,7 @@ use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
 use App\Http\Controllers\System\LoginLog\LoginLogController;
 use App\Http\Controllers\System\Module\ModuleController;
 use App\Http\Controllers\System\Permission\PermissionController;
+use App\Http\Controllers\System\Product\ProductController;
 use App\Http\Controllers\System\Profile\ProfileController;
 use App\Http\Controllers\System\Role\RoleController;
 use App\Http\Controllers\System\User\UserController;
@@ -80,5 +81,12 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
         //Email Template
         Route::resource('/email-templates', EmailTemplateController::class);
         Route::get('/email-templates/change-status/{id}', [EmailTemplateController::class, 'changeStatus']);
+
+        //Email Template
+        Route::resource('/products', ProductController::class);
+        Route::get('/products/change-status/{id}', [ProductController::class, 'changeStatus']);
     });
+
+
+    Route::get('/get-sub-category', [SubCategoryController::class, 'getSubCategory'])->name('getSubCategory');
 });

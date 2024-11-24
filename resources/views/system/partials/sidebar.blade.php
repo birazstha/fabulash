@@ -6,14 +6,21 @@
         'permission' => checkPermission('home', 'GET'),
     ]" />
 
-    {{-- Dashboard --}}
+    {{-- Product --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Product Management',
+        'route' => 'products',
+        'icon' => 'fas fa-box-open',
+        'permission' => checkPermission('products', 'GET'),
+    ]" />
+
+    {{-- Category --}}
     <x-system.sidebar-item :input="[
         'title' => 'Category Management',
         'route' => 'categories',
         'icon' => 'fas fa-list',
         'permission' => checkPermission('categories', 'GET'),
     ]" />
-
 
 
     {{-- Basic Setup --}}

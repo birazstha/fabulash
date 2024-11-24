@@ -53,4 +53,9 @@ class SubCategoryService extends Service
         $data = $this->getItemById($request->sub_category);
         $data->delete();
     }
+
+    public function getSubCategory($request)
+    {
+        return $this->model->where('parent_id', $request->categoryId)->get();
+    }
 }

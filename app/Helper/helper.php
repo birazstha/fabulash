@@ -120,3 +120,14 @@ function urlFormatter($seg1, $seg2, $seg3)
     $finalUrl = preg_replace('/\d+/', '*', $url);
     return rtrim($finalUrl, '/');
 }
+
+function convertToAmount($amount)
+{
+    if ($amount != 0) {
+
+        $formattedNumber = number_format($amount, 0, '.', ',');
+
+        return 'Rs. ' . $formattedNumber . '/-';
+    }
+    return '-';
+}

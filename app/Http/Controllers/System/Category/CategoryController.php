@@ -4,6 +4,7 @@ namespace App\Http\Controllers\System\Category;
 
 use App\Http\Controllers\ResourceController;
 use App\Services\System\Category\CategoryService;
+use Illuminate\Http\Request;
 
 class CategoryController extends ResourceController
 {
@@ -29,4 +30,6 @@ class CategoryController extends ResourceController
     {
         return 'category';
     }
+
+  
 }

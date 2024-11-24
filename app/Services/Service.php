@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class Service
 {
+    use FileTrait;
+
     protected $model;
     public function __construct($model)
     {
@@ -35,10 +38,14 @@ class Service
 
     public function store($request)
     {
-        DB::transaction(function () use ($request) {
+        return DB::transaction(function () use ($request) {
             $data = $request->except('_token');
             $data['created_by'] = authUser()->id;
-            $this->model->create($data);
+            $model = $this->model->create($data);
+            if ($request->image) {
+                $this->storeImage($request->image, 'uploads/' . $request->folder, $model);
+            }
+            return $model->id;
         });
     }
 

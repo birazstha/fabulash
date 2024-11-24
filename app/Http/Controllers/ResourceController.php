@@ -100,9 +100,13 @@ class ResourceController extends Controller
             ],
         ];
 
-        if ($type) {
+        if ($type == 'create' || $type == 'edit') {
             $breadCrumb[] = [
                 'title' => $type == 'create' ? 'Create' : 'Edit',
+            ];
+        } elseif ($type == 'detail') {
+            $breadCrumb[] = [
+                'title' => 'Show',
             ];
         }
 
@@ -114,8 +118,6 @@ class ResourceController extends Controller
                 ],
             ]);
         }
-
-        // dd($breadCrumb);
 
         return $breadCrumb;
     }
@@ -130,7 +132,7 @@ class ResourceController extends Controller
         $data = $this->service->showPageData($request, $id);
         $data['indexUrl'] =  $this->indexUrl();
         $data['moduleName'] = $this->moduleToTitle();
-        $data['breadCrumb'] =  $this->breadCrumbForCreate('Detail');
+        $data['breadCrumb'] =  $this->breadCrumbForIndex('detail');
         return view('system.' . $this->folderName() . '.show', $data);
     }
 

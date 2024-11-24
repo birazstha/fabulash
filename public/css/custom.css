@@ -35,3 +35,21 @@ td a:hover {
     color: rgb(255, 30, 30);
     transition: all 0.3s;
 }
+
+.preview-cropped-image {
+    text-align: center;
+    overflow: hidden;
+    width: 160px;
+    height: 160px;
+    margin: 10px;
+    border: 1px solid red;
+}
+
+.modal-lg {
+    max-width: 800px !important;
+}
+
+#image {
+    display: block;
+    max-width: 100%;
+}

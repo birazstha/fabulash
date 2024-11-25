@@ -5,6 +5,7 @@ namespace App\Services\System\Product;
 use App\Models\Product;
 use App\Services\Service;
 use App\Services\System\Category\CategoryService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ProductService extends Service
@@ -15,6 +16,35 @@ class ProductService extends Service
     {
         parent::__construct($model);
         $this->categoryService = $categoryService;
+    }
+
+    public function getAllData($request)
+    {
+        $query = $this->query();
+        if (isset($request->keyword)) {
+            $query->where('title', 'LIKE',  '%' . $request->keyword . '%');
+        }
+
+        if (isset($request->category_id)) {
+            $query->whereHas('subCategory', function ($subQuery) use ($request) {
+                $subQuery->where('parent_id', $request->category_id);
+            });
+        }
+
+
+        if (isset($request->sub_category_id)) {
+            $query->where('sub_category_id', $request->sub_category_id);
+        }
+
+        return $query->orderBy('updated_at', 'DESC')->get();
+    }
+
+    public function indexPageData(Request $request)
+    {
+        return  [
+            'categories' => $this->categoryService->getAllData($request)->pluck('title', 'id'),
+            'items' => $this->getAllData($request)
+        ];
     }
 
     public function store($request)

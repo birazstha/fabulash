@@ -23,7 +23,6 @@ class Service
 
     public function getAllData($request)
     {
-
         $query = $this->query();
         if (isset($request->keyword)) {
             $query->where('title', 'LIKE',  '%' . $request->keyword . '%');
@@ -62,11 +61,8 @@ class Service
         return $this->model->where('id', $id)->first();
     }
 
-
-
     public function indexPageData(Request $request)
     {
-
         return  [
             'items' => $this->getAllData($request)
         ];

@@ -9,19 +9,21 @@
                 'placeholder' => 'Enter Keyword',
             ]" />
 
+
+            <input type="hidden" id="old_category_id" value="{{ request()->category_id }}">
+            <input type="hidden" id="old_sub_category_id" value="{{ request()->sub_category_id }}">
+
             <x-system.select-search :input="[
                 'name' => 'category_id',
-                'required' => true,
-                'options' => $users ?? [],
+                'options' => $categories ?? [],
                 'value' => Request::input('category_id') ?? old('category_id'),
             ]" />
 
             <x-system.select-search :input="[
                 'name' => 'sub_category_id',
                 'width' => '180px',
-                'required' => true,
-                'options' => $users ?? [],
-                'value' => Request::input('sub_category_id') ?? old('sub_category_id'),
+                'options' => [],
+                'value' => Request::input('sub_category_id'),
             ]" />
 
         </x-slot>
@@ -31,6 +33,8 @@
 @section('headings')
     <th>S.N</th>
     <th>Title</th>
+    <th>Category</th>
+    <th>Sub Category</th>
     <th>Price</th>
     <th>Action</th>
 @endsection
@@ -40,6 +44,8 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $item->title }}</td>
+            <td>{{ $item->subCategory->parent->title }}</td>
+            <td>{{ $item->subCategory->title }}</td>
             <td>{{ convertToAmount($item->price) }}</td>
             <td>
                 @include('system.partials.editButton')
@@ -48,4 +54,8 @@
             </td>
         </tr>
     @endforeach
+@endsection
+
+@section('js')
+    <script src="{{ asset('compiledCssAndJs/js/categories.js') }}"></script>
 @endsection

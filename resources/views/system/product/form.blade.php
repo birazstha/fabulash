@@ -18,6 +18,7 @@
         ]" />
 
         <input type="hidden" id="old_sub_category_id" value="{{ isset($item) ? $item->sub_category_id : '' }}">
+        <input type="hidden" id="old_category_id" value="{{ isset($item) ? $item->subCategory->parent->id : '' }}">
 
         {{-- Title --}}
         <x-system.input :input="[
@@ -62,72 +63,74 @@
 
     <input type="hidden" value="{{ request()->product_id ?? null }}" name="productId">
 
-    <div class="toggle-file">
-        <div class="form-group row" id="document-1">
-            <label for="inputName" class="col-sm-2 col-form-label">
-                Photo 1
-                <span class="text text-danger">*</span>
-            </label>
+    @if (!isset($item))
+        <div class="toggle-file">
+            <div class="form-group row" id="document-1">
+                <label for="inputName" class="col-sm-2 col-form-label">
+                    Photo 1
+                    <span class="text text-danger">*</span>
+                </label>
 
-            <div class="col-sm-10">
-                <div class="d-flex document">
-                    <input type="file" class="form-control image" style="width:100%"
-                        accept="image/jpg,image/jpeg,image/png" data-id="1">
-                    <i class="fas fa-times removeDocument d-none text text-danger" data-buttonId="1"></i>
-                </div>
-                <div class="previewImage">
-                    <img src="" alt="" class="img-thumbnail d-none mt-3" width="200px"
-                        data-croppedImageId="1">
-                    <input type="hidden" name="photo[0]" id="cropped_image_1">
-                </div>
-            </div>
-        </div>
-
-        <div class="dynamic-input"></div>
-
-        <div class="form-group row toggle-add-button">
-            <label for="" class="col-sm-2"></label>
-            <div class="col-sm-2">
-                <button type="button" class="btn btn-primary btn-sm" id="btnAdd"><i
-                        class="fas fa-plus"></i>&nbspAdd</button>
-            </div>
-        </div>
-
-        {{-- Modal Starts --}}
-        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalLabel">Crop Document</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-
-                        </button>
+                <div class="col-sm-10">
+                    <div class="d-flex document">
+                        <input type="file" class="form-control image" style="width:100%"
+                            accept="image/jpg,image/jpeg,image/png" data-id="1">
+                        <i class="fas fa-times removeDocument d-none text text-danger" data-buttonId="1"></i>
                     </div>
-                    <div class="modal-body">
-                        <div class="img-container">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="preview-cropped-image"></div>
+                    <div class="previewImage">
+                        <img src="" alt="" class="img-thumbnail d-none mt-3" width="200px"
+                            data-croppedImageId="1">
+                        <input type="hidden" name="photo[0]" id="cropped_image_1">
+                    </div>
+                </div>
+            </div>
+
+            <div class="dynamic-input"></div>
+
+            <div class="form-group row toggle-add-button">
+                <label for="" class="col-sm-2"></label>
+                <div class="col-sm-2">
+                    <button type="button" class="btn btn-primary btn-sm" id="btnAdd"><i
+                            class="fas fa-plus"></i>&nbspAdd</button>
+                </div>
+            </div>
+
+            {{-- Modal Starts --}}
+            <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel">Crop Document</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="img-container">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <img id="image" src="https://avatars0.githubusercontent.com/u/3456749">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="preview-cropped-image"></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning btn-sm" id="rotate-left">Rotate Left</button>
-                        <button type="button" class="btn btn-info btn-sm" id="rotate-right">Rotate Right</button>
-                        <button type="button" class="btn btn-primary btn-sm" id="crop">Crop</button>
-                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-warning btn-sm" id="rotate-left">Rotate Left</button>
+                            <button type="button" class="btn btn-info btn-sm" id="rotate-right">Rotate Right</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="crop">Crop</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cancel</button>
 
+                        </div>
                     </div>
                 </div>
             </div>
+            {{-- Modal Ends --}}
         </div>
-        {{-- Modal Ends --}}
-    </div>
+    @endif
 @endsection
 
 
@@ -274,10 +277,6 @@
                 }, 'image/png', 0.5);
             });
 
-
-
-
-
             // Rotate Left
             $("#rotate-left").click(function() {
                 cropper.rotate(-90);
@@ -292,39 +291,5 @@
         });
     </script>
 
-    <script>
-        let fetchSubCat = (categoryId) => {
-            let oldSubcategory = $("#old_sub_category_id").val();
-            console.log(oldSubcategory);
-            $.ajax({
-                url: "{{ route('getSubCategory') }}",
-                type: 'GET',
-                data: {
-                    'categoryId': categoryId
-                },
-                success: function(response) {
-                    console.log(response);
-                    let data = "<option value=''>-- Select Sub Category --</option>";
-                    $.each(response, function(index, value) {
-                        if (oldSubcategory && oldSubcategory == value.id) {
-                            data +=
-                                `<option value=${value.id} selected>${value.title}</option>`;
-                        } else {
-                            data += `<option value="${value.id}"> ${value.title}
-                    </option>`;
-                        }
-                    });
-
-                    $("#sub_category_id").html(data);
-                }
-            });
-        }
-
-
-        $(document).on('change', '#category_id', function() {
-            let categoryId = $(this).val();
-            fetchSubCat(categoryId);
-        });
-
-    </script>
+    <script src="{{ asset('compiledCssAndJs/js/categories.js') }}"></script>
 @endsection

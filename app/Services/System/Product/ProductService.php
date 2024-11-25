@@ -5,8 +5,8 @@ namespace App\Services\System\Product;
 use App\Models\Product;
 use App\Services\Service;
 use App\Services\System\Category\CategoryService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductService extends Service
 {
@@ -31,21 +31,12 @@ class ProductService extends Service
             });
         }
 
-
         if (isset($request->sub_category_id)) {
             $query->where('sub_category_id', $request->sub_category_id);
         }
-
         return $query->orderBy('updated_at', 'DESC')->get();
     }
 
-    public function indexPageData(Request $request)
-    {
-        return  [
-            'categories' => $this->categoryService->getAllData($request)->pluck('title', 'id'),
-            'items' => $this->getAllData($request)
-        ];
-    }
 
     public function store($request)
     {
@@ -71,21 +62,18 @@ class ProductService extends Service
         });
     }
 
-    public function createPageData($request)
+    public function delete($request, $id)
     {
-        return [
-            'categories' => $this->categoryService->getAllData($request)->pluck('title', 'id'),
-            'status' => $this->status()
-        ];
-    }
+        DB::transaction(function () use ($request, $id) {
+            $data = $this->getItemById($id);
+            foreach ($data->files()->get() as $file) {
+                if (File::exists($file->path)) {
+                    File::delete($file->path);
+                }
 
-    public function editPageData($id)
-    {
-
-        return [
-            'item' => $this->getItemById($id),
-            'categories' => $this->categoryService->getAllData(request())->pluck('title', 'id'),
-            'status' => $this->status()
-        ];
+                $file->delete();
+            }
+            $data->delete();
+        });
     }
 }

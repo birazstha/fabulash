@@ -15,6 +15,7 @@
 
             <x-system.select-search :input="[
                 'name' => 'category_id',
+                'width' => '170px',
                 'options' => $categories ?? [],
                 'value' => Request::input('category_id') ?? old('category_id'),
             ]" />

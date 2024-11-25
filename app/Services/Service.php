@@ -51,9 +51,18 @@ class Service
 
     public function update($request, $id)
     {
-        $data = $request->except('_token');;
-        $update = $this->getItemById($id);
-        $update->update($data);
+        DB::transaction(function () use ($request, $id) {
+            $data = $request->except('_token');
+            $data['updated_by'] = authUser()->id;
+            $update = $this->getItemById($id);
+            //Update Image
+            if ($request->image) {
+                $this->updateImage($request->image, 'uploads/' . $request->folder, $update);
+            }
+
+
+            $update->update($data);
+        });
     }
 
     public function getItemById($id)

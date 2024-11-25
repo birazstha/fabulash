@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('rank')->nullable();
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->decimal('price', 10, 2);
+            $table->integer('price');
             $table->foreignId('sub_category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->boolean('status');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');

@@ -4,7 +4,7 @@
 
     @if (!isset($input['hidePlaceholder']))
         <option value="">
-            {{ '--Select ' . formatter($input['name']) . ' --' }}
+            {{ '-- Select ' . formatter($input['name']) . ' --' }}
         </option>
     @endif
 

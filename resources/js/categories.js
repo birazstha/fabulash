@@ -9,7 +9,7 @@ let fetchSubCat = (categoryId) => {
             categoryId: categoryId,
         },
         success: function (response) {
-            let data = "<option value=''>--Select Sub Category--</option>";
+            let data = "<option value=''>-- Select Sub Category --</option>";
             $.each(response, function (index, value) {
                 if (oldSubcategory && oldSubcategory == value.id) {
                     data += `<option value=${value.id} selected>${value.title}</option>`;
@@ -28,8 +28,6 @@ $(document).on("change", "#category_id", function () {
     let categoryId = $(this).val();
     fetchSubCat(categoryId);
 });
-
-
 
 if (oldCategory) {
     $(document).ready(function () {

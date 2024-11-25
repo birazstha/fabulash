@@ -1,8 +1,10 @@
-<select name="{{ $input['name'] }}" class="form-control mr-2" id="{{ $input['id'] ?? $input['name'] }}"
-    {{ isset($input['required']) ? 'required' : '' }} class="form-control">
+<select name="{{ $input['name'] }}" class="form-control mr-2 {{ isset($input['class']) ? $input['class'] : '' }}"
+    id="{{ $input['id'] ?? $input['name'] }}" {{ isset($input['required']) ? 'required' : '' }}
+    style="width: {{ isset($input['width']) ? $input['width'] : '150px' }}">
+
     @if (!isset($input['hidePlaceholder']))
         <option value="">
-            {{ '-- ' . ('Select ' . formatter($input['name'])) . ' --' }}
+            {{ '--Select ' . formatter($input['name']) . ' --' }}
         </option>
     @endif
 

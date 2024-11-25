@@ -131,3 +131,8 @@ function convertToAmount($amount)
     }
     return '-';
 }
+
+function noDataFound($colspan)
+{
+    return '<tr><th colspan=' . $colspan . ' class="text text-danger text-center">No data found.' . '</th></tr>';
+}

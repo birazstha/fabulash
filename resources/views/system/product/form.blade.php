@@ -1,49 +1,66 @@
 @extends('system.layouts.form')
 
 @section('form')
-    {{-- Category --}}
-    <x-system.select :input="[
-        'name' => 'category_id',
-        'options' => $categories ?? [],
-        'value' => $item->subCategory->parent->id ?? old('category_id'),
-        'autofocus' => true,
-    ]" />
+    @if (!isset(request()->product_id))
+        {{-- Category --}}
+        <x-system.select :input="[
+            'name' => 'category_id',
+            'options' => $categories ?? [],
+            'value' => $item->subCategory->parent->id ?? old('category_id'),
+            'autofocus' => true,
+        ]" />
 
-    {{-- Sub Category --}}
-    <x-system.select :input="[
-        'name' => 'sub_category_id',
-        'options' => [],
-        'value' => $item->sub_category_id ?? (old('sub_category_id') ?? request()->moduleId),
-    ]" />
+        {{-- Sub Category --}}
+        <x-system.select :input="[
+            'name' => 'sub_category_id',
+            'options' => [],
+            'value' => $item->sub_category_id ?? (old('sub_category_id') ?? request()->moduleId),
+        ]" />
 
-    <input type="hidden" name="old_sub_category_id" value="{{ isset($item) ? $item->sub_category_id : '' }}">
+        <input type="hidden" id="old_sub_category_id" value="{{ isset($item) ? $item->sub_category_id : '' }}">
 
-    {{-- Title --}}
-    <x-system.input :input="[
-        'name' => 'title',
-        'value' => $item->title ?? old('title'),
-    ]" />
+        {{-- Title --}}
+        <x-system.input :input="[
+            'name' => 'title',
+            'value' => $item->title ?? old('title'),
+        ]" />
 
-    {{-- Short Description --}}
-    <x-system.input :input="[
-        'name' => 'short_description',
-        'value' => $item->short_description ?? old('short_description'),
-    ]" />
+        {{-- Short Description --}}
+        <x-system.input :input="[
+            'name' => 'short_description',
+            'value' => $item->short_description ?? old('short_description'),
+        ]" />
 
-    {{-- Description --}}
-    <x-system.textarea :input="[
-        'name' => 'description',
-        'value' => $item->description ?? old('description'),
-    ]" />
+        {{-- Description --}}
+        <x-system.textarea :input="[
+            'name' => 'description',
+            'value' => $item->description ?? old('description'),
+        ]" />
+
+        {{-- Price --}}
+        <x-system.input :input="[
+            'name' => 'price',
+            'type' => 'number',
+            'value' => $item->price ?? old('price'),
+        ]" />
+
+        {{-- Price --}}
+        <x-system.input :input="[
+            'name' => 'rank',
+            'type' => 'number',
+            'value' => $item->rank ?? old('rank'),
+        ]" />
 
 
-    {{-- Price --}}
-    <x-system.input :input="[
-        'name' => 'price',
-        'type' => 'number',
-        'value' => $item->price ?? old('price'),
-    ]" />
+        {{-- Status --}}
+        <x-system.radio :input="[
+            'name' => 'status',
+            'options' => $status,
+            'value' => $item->status ?? true,
+        ]" />
+    @endif
 
+    <input type="hidden" value="{{ request()->product_id ?? null }}" name="productId">
 
     <div class="toggle-file">
         <div class="form-group row" id="document-1">
@@ -111,13 +128,6 @@
         </div>
         {{-- Modal Ends --}}
     </div>
-
-    {{-- Status --}}
-    <x-system.radio :input="[
-        'name' => 'status',
-        'options' => $status,
-        'value' => $item->status ?? true,
-    ]" />
 @endsection
 
 
@@ -283,9 +293,9 @@
     </script>
 
     <script>
-        $(document).on('change', '#category_id', function() {
-            let categoryId = $(this).val();
-            const oldSubcategory = $("#old_sub_category_id").val();
+        let fetchSubCat = (categoryId) => {
+            let oldSubcategory = $("#old_sub_category_id").val();
+            console.log(oldSubcategory);
             $.ajax({
                 url: "{{ route('getSubCategory') }}",
                 type: 'GET',
@@ -293,6 +303,7 @@
                     'categoryId': categoryId
                 },
                 success: function(response) {
+                    console.log(response);
                     let data = "<option value=''>-- Select Sub Category --</option>";
                     $.each(response, function(index, value) {
                         if (oldSubcategory && oldSubcategory == value.id) {
@@ -304,11 +315,16 @@
                         }
                     });
 
-
-
                     $("#sub_category_id").html(data);
                 }
             });
+        }
+
+
+        $(document).on('change', '#category_id', function() {
+            let categoryId = $(this).val();
+            fetchSubCat(categoryId);
         });
+
     </script>
 @endsection

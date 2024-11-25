@@ -21,10 +21,12 @@ class ProductService extends Service
     {
         return DB::transaction(function () use ($request) {
             $data = $request->except('_token');
-            $data['created_by'] = authUser()->id;
-
-            $data['price'] = 5000;
-            $model = $this->model->create($data);
+            if (isset($request->productId)) {
+                $model = $this->getItemById($request->productId);
+            } else {
+                $data['created_by'] = authUser()->id;
+                $model = $this->model->create($data);
+            }
 
             foreach ($request->photo as $photo) {
                 $fileData = [

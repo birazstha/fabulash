@@ -38,11 +38,29 @@
         'label' => 'Created By',
         'value' => $item->user->name ?? '-',
     ]" />
+
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="name">Status</label>
+        </div>
+        <div class="col-sm-9">
+            <p>: &nbsp; &nbsp;
+                {!! statusBadge($item, $indexUrl) !!}
+            </p>
+        </div>
+    </div>
 @endsection
 
 @section('content-second')
     <hr>
-    <h3>Product Images</h3>
+    <div class="d-flex justify-content-between align-items-center">
+        <h3>Product Images</h3>
+        <a href="{{ $indexUrl . '/create?product_id=' . $item->id }}" class="btn btn-info btn-sm">
+            <i class="fa fa-plus"></i>&nbsp; Add
+        </a>
+
+
+    </div>
     <hr>
     <table class="table table-bordered">
         <thead>
@@ -54,18 +72,34 @@
         </thead>
         <tbody>
 
-            @foreach ($item->files as $file)
+            @forelse ($item->files as $key => $file)
                 <tr class="text-center">
-                    <th scope="row">1</th>
+                    <th scope="row">{{ $key + 1 }}</th>
                     <td>
                         <a href="{{ asset($file->path) }}" class="image-link">
                             <img src="{{ asset($file->path) }}" alt="" class="img-thumbnail" width="150px">
                         </a>
                     </td>
-                    <td>Otto</td>
-                </tr>
-            @endforeach
+                    <td>
+                        <x-system.delete :input="[
+                            'btnColor' => 'primary',
+                            'id' => 'delete-file-' . $file->id,
+                            'btnTitle' => 'Delete',
+                            'isConfirmation' => true,
+                            'indexUrl' => 'files',
+                            'itemId' => $file->id,
+                        ]" />
 
-        </tbody>
-    </table>
-@endsection
+                        <a href="{{ route('files.edit', $file->id) }}" class="btn btn-warning btn-sm"><i
+                                class="fa fa-pen"></i> Edit</a>
+                    </td>
+                </tr>
+
+                @empty
+
+                    {!! noDataFound(3) !!}
+                @endforelse
+
+            </tbody>
+        </table>
+    @endsection

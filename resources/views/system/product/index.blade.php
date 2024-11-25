@@ -8,6 +8,22 @@
                 'value' => Request::input('keyword'),
                 'placeholder' => 'Enter Keyword',
             ]" />
+
+            <x-system.select-search :input="[
+                'name' => 'category_id',
+                'required' => true,
+                'options' => $users ?? [],
+                'value' => Request::input('category_id') ?? old('category_id'),
+            ]" />
+
+            <x-system.select-search :input="[
+                'name' => 'sub_category_id',
+                'width' => '180px',
+                'required' => true,
+                'options' => $users ?? [],
+                'value' => Request::input('sub_category_id') ?? old('sub_category_id'),
+            ]" />
+
         </x-slot>
     </x-system.form>
 @endsection

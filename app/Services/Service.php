@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class Service
 {
@@ -41,13 +42,25 @@ class Service
             $data = $request->except('_token');
             $data['created_by'] = authUser()->id;
             $model = $this->model->create($data);
-            if ($request->image) {
-                $this->storeImage($request->image, 'uploads/' . $request->folder, $model);
+            if ($request->cropped_photo) {
+                $fileData = [
+                    'file' => $request->cropped_photo,
+                    'model' => $model,
+                    'path' => 'uploads/testimonials',
+                ];
+
+                $this->storeBase64Image($fileData);
             }
             return $model->id;
         });
     }
 
+
+    function getTableName($path)
+    {
+        $segments = explode('/', $path);
+        return $segments[2] ?? null;
+    }
 
     public function update($request, $id)
     {
@@ -56,11 +69,14 @@ class Service
             $data['updated_by'] = authUser()->id;
             $update = $this->getItemById($id);
             //Update Image
-            if ($request->image) {
-                $this->updateImage($request->image, 'uploads/' . $request->folder, $update);
+            if ($request->cropped_photo) {
+                $fileData = [
+                    'file' => $request->cropped_photo,
+                    'model' => $update,
+                    'path' => 'uploads/' . $this->getTableName($request->folder),
+                ];
+                $this->updateBase64Image($fileData);
             }
-
-
             $update->update($data);
         });
     }
@@ -109,7 +125,17 @@ class Service
 
     public function delete($request, $id)
     {
-        $data = $this->getItemById($id);
-        $data->delete();
+        DB::transaction(function () use ($request, $id) {
+            $data = $this->getItemById($id);
+            if (method_exists($data, 'files')) {
+                foreach ($data->files()->get() as $file) {
+                    if (File::exists($file->path . '/' . $file->title)) {
+                        File::delete($file->path . '/' . $file->title);
+                    }
+                    $file->delete();
+                }
+            }
+            $data->delete();
+        });
     }
 }

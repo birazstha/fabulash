@@ -135,8 +135,9 @@ trait FileTrait
 
         $data = [
             'title' => $imageName,
-            'path' => $fileData['path'] . '/' . $imageName
+            'path' => $fileData['path']
         ];
+
         return $fileData['model']->files()->create($data);
     }
 
@@ -145,7 +146,7 @@ trait FileTrait
     {
 
         //Delete older File
-        $filePath = $fileData['model']->path . '/' . $fileData['model']->name;
+        $filePath = $fileData['model']->files()->value('path') . '/' . $fileData['model']->files()->value('title');
 
         if (File::exists($filePath)) {
             File::delete($filePath);
@@ -155,9 +156,10 @@ trait FileTrait
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileData['file']));
 
         // Define the upload directory path
-        $uploadPath = public_path($fileData['model']->path);
+        $uploadPath = public_path($fileData['model']->files()->value('path'));
+
 
         // Save the image to the uploads directory
-        file_put_contents($uploadPath, $imageData);
+        file_put_contents($uploadPath . '/' . $fileData['model']->files()->value('title'), $imageData);
     }
 }

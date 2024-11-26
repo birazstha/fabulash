@@ -61,19 +61,4 @@ class ProductService extends Service
             return $model->id;
         });
     }
-
-    public function delete($request, $id)
-    {
-        DB::transaction(function () use ($request, $id) {
-            $data = $this->getItemById($id);
-            foreach ($data->files()->get() as $file) {
-                if (File::exists($file->path)) {
-                    File::delete($file->path);
-                }
-
-                $file->delete();
-            }
-            $data->delete();
-        });
-    }
 }

@@ -14,12 +14,28 @@
         'permission' => checkPermission('products', 'GET'),
     ]" />
 
+    {{-- Inventory --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Inventory Management',
+        'route' => 'inventories',
+        'icon' => 'fas fa-warehouse',
+        'permission' => checkPermission('inventories', 'GET'),
+    ]" />
+
     {{-- Category --}}
     <x-system.sidebar-item :input="[
         'title' => 'Category Management',
         'route' => 'categories',
         'icon' => 'fas fa-list',
         'permission' => checkPermission('categories', 'GET'),
+    ]" />
+
+    {{-- Testimonials --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Testimonial Management',
+        'route' => 'testimonials',
+        'icon' => 'fas fa-comment-dots',
+        'permission' => checkPermission('testimonials', 'GET'),
     ]" />
 
 

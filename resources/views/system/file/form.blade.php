@@ -12,7 +12,7 @@
                 accept="image/jpeg,image/jpg,image/png">
 
             <div class="previewImage">
-                <img src="{{ asset($item->path . '/' . $item->name) }}" alt=""
+                <img src="{{ asset($item->path . '/' . $item->title) }}" alt=""
                     class="croppedImage img-thumbnail mt-3" width="200px">
                 <input type="hidden" name="cropped_image">
             </div>

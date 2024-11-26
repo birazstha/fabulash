@@ -9,12 +9,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\System\Dashboard\DashboardController;
 use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
 use App\Http\Controllers\System\File\FileController;
+use App\Http\Controllers\System\Inventory\InventoryController;
 use App\Http\Controllers\System\LoginLog\LoginLogController;
 use App\Http\Controllers\System\Module\ModuleController;
 use App\Http\Controllers\System\Permission\PermissionController;
 use App\Http\Controllers\System\Product\ProductController;
 use App\Http\Controllers\System\Profile\ProfileController;
 use App\Http\Controllers\System\Role\RoleController;
+use App\Http\Controllers\System\Testimonial\TestimonialController;
 use App\Http\Controllers\System\User\UserController;
 
 Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
@@ -89,6 +91,14 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //File
         Route::resource('/files', FileController::class);
+
+        //Testimonials
+        Route::resource('/testimonials', TestimonialController::class);
+        Route::get('/testimonials/change-status/{id}', [TestimonialController::class, 'changeStatus']);
+
+
+        //File
+        Route::resource('/inventories', InventoryController::class);
     });
 
 

@@ -105,9 +105,9 @@ function fileNameFormatter($input)
     return $matches[1][0];
 }
 
-function indexImagePreview($item, $indexUrl)
+function indexImagePreview($item)
 {
-    $imagePath = asset('uploads/' . $indexUrl . '/' . $item->files()->value('title'));
+    $imagePath = asset($item->files()->value('path') . '/' . $item->files()->value('title'));
     return '
         <a class="image-link" href="' . $imagePath . '">
             <img src="' . $imagePath . '" width="150px" alt="" class="img-thumbnail">
@@ -135,4 +135,9 @@ function convertToAmount($amount)
 function noDataFound($colspan)
 {
     return '<tr><th colspan=' . $colspan . ' class="text text-danger text-center">No data found.' . '</th></tr>';
+}
+
+function showLink($item, $route)
+{
+    return '<a href="' . route($route . '.show', $item->id) . '">' . $item->title . '</a>';
 }

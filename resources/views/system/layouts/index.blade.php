@@ -15,10 +15,9 @@
                                 <a href="{{ url($indexUrl . '/create') }}" class="btn btn-success btn-sm mr-1"><i
                                         class="fa fa-plus"></i> Add</a>
                             @endif
-
-                            <a href="{{ url()->previous() }}" class="btn btn-info btn-sm back-btn"><i
-                                    class="fas fa-chevron-left"></i> Back</a>
                         @show
+                        <a href="{{ url()->previous() }}" class="btn btn-info btn-sm back-btn"><i
+                                class="fas fa-chevron-left"></i> Back</a>
                     </div>
 
                 </div>

@@ -11,11 +11,14 @@ use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
 use App\Http\Controllers\System\File\FileController;
 use App\Http\Controllers\System\Inventory\InventoryController;
 use App\Http\Controllers\System\LoginLog\LoginLogController;
+use App\Http\Controllers\System\Menu\MenuController;
 use App\Http\Controllers\System\Module\ModuleController;
+use App\Http\Controllers\System\Order\OrderController;
 use App\Http\Controllers\System\Permission\PermissionController;
 use App\Http\Controllers\System\Product\ProductController;
 use App\Http\Controllers\System\Profile\ProfileController;
 use App\Http\Controllers\System\Role\RoleController;
+use App\Http\Controllers\System\Slider\SliderController;
 use App\Http\Controllers\System\Testimonial\TestimonialController;
 use App\Http\Controllers\System\User\UserController;
 
@@ -99,6 +102,17 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //File
         Route::resource('/inventories', InventoryController::class);
+
+        //Order
+        Route::resource('/orders', OrderController::class);
+
+        //Menu
+        Route::resource('/menus', MenuController::class);
+        Route::get('/menus/change-status/{id}', [MenuController::class, 'changeStatus']);
+
+        //Sliders
+        Route::resource('/sliders', SliderController::class);
+        Route::get('/sliders/change-status/{id}', [SliderController::class, 'changeStatus']);
     });
 
 

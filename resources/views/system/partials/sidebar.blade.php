@@ -6,6 +6,22 @@
         'permission' => checkPermission('home', 'GET'),
     ]" />
 
+    {{-- Menu Management --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Menu Management',
+        'route' => 'menus',
+        'icon' => 'fas fa-list',
+        'permission' => checkPermission('menus', 'GET'),
+    ]" />
+
+    {{-- Slider Management --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Slider Management',
+        'route' => 'sliders',
+        'icon' => 'fas fa-images',
+        'permission' => checkPermission('sliders', 'GET'),
+    ]" />
+
     {{-- Product --}}
     <x-system.sidebar-item :input="[
         'title' => 'Product Management',
@@ -20,6 +36,14 @@
         'route' => 'inventories',
         'icon' => 'fas fa-warehouse',
         'permission' => checkPermission('inventories', 'GET'),
+    ]" />
+
+    {{-- Order --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Order Management',
+        'route' => 'orders',
+        'icon' => 'fab fa-opencart',
+        'permission' => checkPermission('orders', 'GET'),
     ]" />
 
     {{-- Category --}}

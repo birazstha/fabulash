@@ -78,10 +78,8 @@
                     <td>
                         <a href="{{ asset($file->path . '/' . $file->title) }}" class="image-link">
                             <img src="{{ asset($file->path . '/' . $file->title) }}" alt="" class="img-thumbnail"
-                                width="150px">
+                              height="100px">
                         </a>
-
-
                     </td>
                     <td>
                         <x-system.delete :input="[

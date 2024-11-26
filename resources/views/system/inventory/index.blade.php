@@ -1,5 +1,7 @@
 @extends('system.layouts.index')
 
+@section('create')
+@endsection
 
 
 @section('search')
@@ -10,7 +12,6 @@
                 'value' => Request::input('keyword'),
                 'placeholder' => 'Enter Keyword',
             ]" />
-
 
             <input type="hidden" id="old_category_id" value="{{ request()->category_id }}">
             <input type="hidden" id="old_sub_category_id" value="{{ request()->sub_category_id }}">
@@ -46,8 +47,6 @@
             <td>{!! showLink($item->product, 'products') !!}</td>
             <td>{{ $item->current_stock }}</td>
             <td>
-                @include('system.partials.editButton')
-                @include('system.partials.deleteButton')
                 @include('system.partials.showButton')
             </td>
         </tr>

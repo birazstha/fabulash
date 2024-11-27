@@ -11,7 +11,7 @@ class InventoryObserver
     {
         Inventory::create([
             'product_id' => $product->id,
-            'created_by' => authUser()->id,
+            'created_by' => 1,
         ]);
     }
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\System\Auth\AuthController;
 use App\Http\Controllers\System\Category\CategoryController;
 use App\Http\Controllers\System\Category\SubCategoryController;
 use App\Http\Controllers\System\Config\ConfigController;
+use App\Http\Controllers\System\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\System\Dashboard\DashboardController;
 use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
@@ -113,6 +114,9 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
         //Sliders
         Route::resource('/sliders', SliderController::class);
         Route::get('/sliders/change-status/{id}', [SliderController::class, 'changeStatus']);
+
+        //Menu
+        Route::resource('/customers', CustomerController::class)->only('index', 'show');
     });
 
 

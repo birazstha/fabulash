@@ -30,7 +30,7 @@
     {{-- Created At --}}
     <x-system.detail :input="[
         'label' => 'Created At',
-        'value' => $item->created_at ?? '-',
+        'value' => convertToTime($item->created_at) ?? '-',
     ]" />
 
     {{-- Created By --}}
@@ -78,7 +78,7 @@
                     <td>
                         <a href="{{ asset($file->path . '/' . $file->title) }}" class="image-link">
                             <img src="{{ asset($file->path . '/' . $file->title) }}" alt="" class="img-thumbnail"
-                              height="100px">
+                                height="100px">
                         </a>
                     </td>
                     <td>

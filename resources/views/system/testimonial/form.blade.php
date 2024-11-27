@@ -37,19 +37,11 @@
     ]" />
 
     {{-- Image --}}
-    {{-- <x-system.file :input="[
-        'name' => 'image',
-        'required' => true,
-        'value' => $item ?? old('image'),
-        'folder' => $indexUrl,
-    ]" /> --}}
-
     <x-system.image :input="[
         'name' => 'photo',
         'required' => isset($item) ? false : true,
         'value' => $item->files ?? null,
         'folder' => $indexUrl,
-        'docType' => 'PHOTO',
     ]" />
 
 

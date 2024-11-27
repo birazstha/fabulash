@@ -46,7 +46,7 @@ class Service
                 $fileData = [
                     'file' => $request->cropped_photo,
                     'model' => $model,
-                    'path' => 'uploads/testimonials',
+                    'path' => 'uploads/' . $this->getFolderName($request->folder),
                 ];
 
                 $this->storeBase64Image($fileData);
@@ -56,7 +56,7 @@ class Service
     }
 
 
-    function getTableName($path)
+    function getFolderName($path)
     {
         $segments = explode('/', $path);
         return $segments[2] ?? null;

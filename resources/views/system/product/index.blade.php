@@ -37,6 +37,7 @@
     <th>Category</th>
     <th>Sub Category</th>
     <th>Price</th>
+    <th>Status</th>
     <th>Action</th>
 @endsection
 
@@ -48,6 +49,7 @@
             <td>{{ $item->subCategory->parent->title }}</td>
             <td>{{ $item->subCategory->title }}</td>
             <td>{{ convertToAmount($item->price) }}</td>
+            <td>{!! statusBadge($item, $indexUrl) !!}</td>
             <td>
                 @include('system.partials.editButton')
                 @include('system.partials.deleteButton')

@@ -46,6 +46,16 @@
         'permission' => checkPermission('orders', 'GET'),
     ]" />
 
+    {{-- Customer --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Customer Management',
+        'route' => 'customers',
+        'icon' => 'fa fa-users',
+        'permission' => checkPermission('customers', 'GET'),
+    ]" />
+
+
+
     {{-- Category --}}
     <x-system.sidebar-item :input="[
         'title' => 'Category Management',

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\System\Dashboard\DashboardController;
 use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
 use App\Http\Controllers\System\File\FileController;
+use App\Http\Controllers\System\Gallery\GalleryController;
 use App\Http\Controllers\System\Inventory\InventoryController;
 use App\Http\Controllers\System\LoginLog\LoginLogController;
 use App\Http\Controllers\System\Menu\MenuController;
@@ -117,6 +118,9 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //Menu
         Route::resource('/customers', CustomerController::class)->only('index', 'show');
+
+        //Gallery
+        Route::resource('/galleries', GalleryController::class);
     });
 
 

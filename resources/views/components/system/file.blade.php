@@ -22,7 +22,8 @@
         </label>
 
         <div class="{{ isset($input['isModal']) && $input['isModal'] ? 'col-sm-8' : 'col-sm-10' }}">
-            <input type="file" class="form-control {{ $input['uploadClass'] ?? '' }}" name="{{ $input['name'] }}"
+            <input {{ isset($input['isMultiple']) && isset($input['isMultiple']) == true ? 'multiple' : '' }} type="file"
+                class="form-control {{ $input['uploadClass'] ?? '' }}" name="{{ $input['name'] }}"
                 id="{{ $input['name'] }}_input"
                 {{ isset($input['required']) && $input['required'] && !$input['value'] ? 'required' : '' }}
                 onchange="previewImage('{{ $input['previewClass'] ?? $input['name'] }}', event)"

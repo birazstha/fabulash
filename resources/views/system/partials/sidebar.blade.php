@@ -6,21 +6,6 @@
         'permission' => checkPermission('home', 'GET'),
     ]" />
 
-    {{-- Menu Management --}}
-    <x-system.sidebar-item :input="[
-        'title' => 'Menu Management',
-        'route' => 'menus',
-        'icon' => 'fas fa-list',
-        'permission' => checkPermission('menus', 'GET'),
-    ]" />
-
-    {{-- Slider Management --}}
-    <x-system.sidebar-item :input="[
-        'title' => 'Slider Management',
-        'route' => 'sliders',
-        'icon' => 'fas fa-images',
-        'permission' => checkPermission('sliders', 'GET'),
-    ]" />
 
     {{-- Product --}}
     <x-system.sidebar-item :input="[
@@ -38,13 +23,6 @@
         'permission' => checkPermission('inventories', 'GET'),
     ]" />
 
-    {{-- Order --}}
-    <x-system.sidebar-item :input="[
-        'title' => 'Order Management',
-        'route' => 'orders',
-        'icon' => 'fab fa-opencart',
-        'permission' => checkPermission('orders', 'GET'),
-    ]" />
 
     {{-- Customer --}}
     <x-system.sidebar-item :input="[
@@ -55,14 +33,31 @@
     ]" />
 
 
-
-    {{-- Category --}}
+    {{-- Order --}}
     <x-system.sidebar-item :input="[
-        'title' => 'Category Management',
-        'route' => 'categories',
-        'icon' => 'fas fa-list',
-        'permission' => checkPermission('categories', 'GET'),
+        'title' => 'Order Management',
+        'route' => 'orders',
+        'icon' => 'fab fa-opencart',
+        'permission' => checkPermission('orders', 'GET'),
     ]" />
+
+    {{-- Gallery --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Gallery Management',
+        'route' => 'galleries',
+        'icon' => 'fa fa-icons',
+        'permission' => checkPermission('galleries', 'GET'),
+    ]" />
+
+
+    {{-- Menu Management --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Menu Management',
+        'route' => 'menus',
+        'icon' => 'fas fa-list',
+        'permission' => checkPermission('menus', 'GET'),
+    ]" />
+
 
     {{-- Testimonials --}}
     <x-system.sidebar-item :input="[
@@ -79,13 +74,29 @@
         'icon' => 'fas fa-cog parent-icon',
         'hasSubmenu' => true,
         'subMenus' => [
-            //Content Types
-            // [
-            //     'title' => 'Content Types',
-            //     'route' => 'content-types',
-            //     'icon' => 'fas fa-icons',
-            //     'permission' => checkPermission('content-types', 'GET'),
-            // ],
+            //Category
+            [
+                'title' => 'Category Management',
+                'route' => 'categories',
+                'icon' => 'fas fa-list',
+                'permission' => checkPermission('categories', 'GET'),
+            ],
+    
+            // Sliders
+            [
+                'title' => 'Slider Management',
+                'route' => 'sliders',
+                'icon' => 'fas fa-images',
+                'permission' => checkPermission('sliders', 'GET'),
+            ],
+
+            //Email Template
+            [
+                'title' => 'Email Templates ',
+                'route' => 'email-templates',
+                'icon' => 'fas fa-envelope-open-text',
+                'permission' => checkPermission('menus', 'GET'),
+            ],
         ],
     ]" />
 
@@ -117,13 +128,6 @@
         ],
     ]" />
 
-    {{-- Email Management --}}
-    <x-system.sidebar-item :input="[
-        'title' => 'Email Templates ',
-        'route' => 'email-templates',
-        'icon' => 'fas fa-envelope-open-text',
-        'permission' => checkPermission('menus', 'GET'),
-    ]" />
 
 
     {{-- System Config --}}

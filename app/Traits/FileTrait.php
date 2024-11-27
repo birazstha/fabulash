@@ -10,16 +10,13 @@ use Spatie\PdfToImage\Pdf;
 trait FileTrait
 {
 
-    public function storeImage($image, $path, $model, $fileType = null)
+    public function storeImage($image, $path, $model)
     {
         $imageName = time() . '_' . uniqid() . '.' . $image->extension();
-
         $image->move(public_path($path), $imageName);
-
         $model->files()->create([
             'title' => $imageName,
-            'path' => $path . '/' . $imageName,
-            'file_type' => $fileType,
+            'path' => $path,
         ]);
     }
 

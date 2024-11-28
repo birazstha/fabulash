@@ -9,5 +9,5 @@
 @endif --}}
 
 
-<a href="{{ url($indexUrl . '/' . $item->id . '/edit') }}" class="btn btn-success btn-sm mr-1"> <i class="fas fa-pen"></i>
+<a href="{{ url($indexUrl . '/' . $item->id . '/edit') }}" class="btn btn-warning btn-sm mr-1"> <i class="fas fa-pen"></i>
 </a>

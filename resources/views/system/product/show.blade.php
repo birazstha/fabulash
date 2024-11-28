@@ -78,10 +78,13 @@
                     <td>
                         <a href="{{ asset($file->path . '/' . $file->title) }}" class="image-link">
                             <img src="{{ asset($file->path . '/' . $file->title) }}" alt="" class="img-thumbnail"
-                                height="100px">
+                                width="200px">
                         </a>
                     </td>
                     <td>
+
+                        <a href="{{ route('files.edit', $file->id) }}" class="btn btn-warning btn-sm"><i
+                                class="fa fa-pen"></i> Edit</a>
                         <x-system.delete :input="[
                             'btnColor' => 'primary',
                             'id' => 'delete-file-' . $file->id,
@@ -91,8 +94,7 @@
                             'itemId' => $file->id,
                         ]" />
 
-                        <a href="{{ route('files.edit', $file->id) }}" class="btn btn-warning btn-sm"><i
-                                class="fa fa-pen"></i> Edit</a>
+
                     </td>
                 </tr>
 

@@ -217,8 +217,6 @@
             var image = document.getElementById('image');
             var cropper;
 
-
-
             $(document).on("change", ".image", function(e) {
                 var currentFileId = $(this).attr('data-id');
                 setCurrentId(currentFileId);

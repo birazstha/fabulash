@@ -15,15 +15,15 @@
     <div class="form-group row {{ $input['divClass'] ?? '' }} {{ $input['class'] ?? '' }}">
         <label for="{{ $input['name'] }}_input"
             class="{{ isset($input['isModal']) && $input['isModal'] ? 'col-sm-4' : 'col-sm-2' }} col-form-label {{ $input['label-class'] ?? '' }}">
-            {{ $input['label'] ?? Str::ucfirst($input['name']) }}
+            {{ isset($input['label']) ? $input['label'] : formatter($input['name']) }}
             <span class="text text-danger">
                 {{ isset($input['required']) && $input['required'] ? '*' : '' }}
             </span>
         </label>
 
         <div class="{{ isset($input['isModal']) && $input['isModal'] ? 'col-sm-8' : 'col-sm-10' }}">
-            <input {{ isset($input['isMultiple']) && isset($input['isMultiple']) == true ? 'multiple' : '' }} type="file"
-                class="form-control {{ $input['uploadClass'] ?? '' }}" name="{{ $input['name'] }}"
+            <input {{ isset($input['isMultiple']) && isset($input['isMultiple']) == true ? 'multiple' : '' }}
+                type="file" class="form-control {{ $input['uploadClass'] ?? '' }}" name="{{ $input['name'] }}"
                 id="{{ $input['name'] }}_input"
                 {{ isset($input['required']) && $input['required'] && !$input['value'] ? 'required' : '' }}
                 onchange="previewImage('{{ $input['previewClass'] ?? $input['name'] }}', event)"

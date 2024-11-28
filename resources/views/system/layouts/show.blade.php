@@ -15,6 +15,7 @@
 
                     @section('back')
                         <div class="card-tools">
+                            @include('system.partials.createButton')
                             @include('system.partials.editButton')
                             <a href="{{ url()->previous() }}" class="btn btn-info btn-sm"><i class="fas fa-chevron-left"></i>
                                 Back</a>

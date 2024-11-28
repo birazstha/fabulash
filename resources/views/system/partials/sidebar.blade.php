@@ -32,12 +32,11 @@
         'permission' => checkPermission('customers', 'GET'),
     ]" />
 
-
     {{-- Order --}}
     <x-system.sidebar-item :input="[
         'title' => 'Order Management',
         'route' => 'orders',
-        'icon' => 'fab fa-opencart',
+        'icon' => 'fas fa-cart-arrow-down',
         'permission' => checkPermission('orders', 'GET'),
     ]" />
 
@@ -48,16 +47,6 @@
         'icon' => 'fa fa-icons',
         'permission' => checkPermission('galleries', 'GET'),
     ]" />
-
-
-    {{-- Menu Management --}}
-    <x-system.sidebar-item :input="[
-        'title' => 'Menu Management',
-        'route' => 'menus',
-        'icon' => 'fas fa-list',
-        'permission' => checkPermission('menus', 'GET'),
-    ]" />
-
 
     {{-- Testimonials --}}
     <x-system.sidebar-item :input="[
@@ -74,6 +63,12 @@
         'icon' => 'fas fa-cog parent-icon',
         'hasSubmenu' => true,
         'subMenus' => [
+            [
+                'title' => 'Menu Management',
+                'route' => 'menus',
+                'icon' => 'fas fa-list',
+                'permission' => checkPermission('menus', 'GET'),
+            ],
             //Category
             [
                 'title' => 'Category Management',
@@ -89,7 +84,7 @@
                 'icon' => 'fas fa-images',
                 'permission' => checkPermission('sliders', 'GET'),
             ],
-
+    
             //Email Template
             [
                 'title' => 'Email Templates ',

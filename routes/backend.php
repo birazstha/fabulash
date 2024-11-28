@@ -121,6 +121,9 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //Gallery
         Route::resource('/galleries', GalleryController::class);
+        Route::get('/galleries/change-status/{id}', [GalleryController::class, 'changeStatus']);
+
+
     });
 
 

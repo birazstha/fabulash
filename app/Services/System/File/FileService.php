@@ -20,6 +20,7 @@ class FileService extends Service
 
     public function update($request, $id)
     {
+
         return DB::transaction(function () use ($id, $request) {
             $data = $request->except('_token');
             $update = $this->getItemById($id);
@@ -32,6 +33,8 @@ class FileService extends Service
                 'model' => $update,
                 'file_title' => 'test'
             ];
+
+
             $this->updateBase64Image($fileData);
 
             return $update;
@@ -42,8 +45,8 @@ class FileService extends Service
     {
         DB::transaction(function () use ($id) {
             $data = $this->getItemById($id);
-            if (FacadesFile::exists($data['path'])) {
-                FacadesFile::delete($data['path']);
+            if (FacadesFile::exists($data['path'] . '/' . $data['title'])) {
+                FacadesFile::delete($data['path'] . '/' . $data['title']);
             }
             $data->delete();
         });

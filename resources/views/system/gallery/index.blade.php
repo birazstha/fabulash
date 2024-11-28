@@ -16,6 +16,7 @@
     <th>S.N</th>
     <th>Title</th>
     <th>No of Photos</th>
+    <th>Status</th>
     <th>Created By</th>
     @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
         <th>Action</th>
@@ -29,8 +30,10 @@
             <td>{{ $item->title ?? 'N/A' }}</td>
             <td>{{ $item->files->count() ?? 'N/A' }}</td>
             <td>{{ $item->createdBy->name ?? 'N/A' }}</td>
+            <td>{!! statusBadge($item, $indexUrl) !!}</td>
             @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
                 <td>
+                    @include('system.partials.editButton')
                     @include('system.partials.showButton')
                     @include('system.partials.deleteButton')
                 </td>

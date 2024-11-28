@@ -7,11 +7,6 @@
         'value' => $item->title ?? 'N/A',
     ]" />
 
-    {{-- Created By --}}
-    <x-system.detail :input="[
-        'label' => 'Created By',
-        'value' => $item->createdBy->name ?? 'N/A',
-    ]" />
 
     {{-- No of Files --}}
     <x-system.detail :input="[
@@ -27,11 +22,23 @@
         'value' => convertToTime($item->created_at) ?? '-',
     ]" />
 
-    {{-- Status --}}
+    {{-- Created By --}}
     <x-system.detail :input="[
-        'label' => 'Status',
-        'value' => 'Active',
+        'label' => 'Created By',
+        'value' => $item->createdBy->name ?? 'N/A',
     ]" />
+
+    {{-- Status --}}
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="name">Status</label>
+        </div>
+        <div class="col-sm-9">
+            <p>: &nbsp; &nbsp;
+                {!! statusBadge($item, $indexUrl) !!}
+            </p>
+        </div>
+    </div>
 @endsection
 
 @section('content-second')
@@ -58,13 +65,21 @@
                     <td>
                         <a href="{{ asset($image->path . '/' . $image->title) }}" class="image-link">
                             <img src="{{ asset($image->path . '/' . $image->title) }}" alt="" class="img-thumbnail"
-                                height="100px">
+                                width="200px">
                         </a>
                     </td>
                     <td scope="col">
-                        <a href="" class="btn btn-info btn-sm">
-                            <i class="fa fa-eye"></i>
-                        </a>
+                        <x-system.delete :input="[
+                            'btnColor' => 'primary',
+                            'id' => 'delete-file-' . $image->id,
+                            'btnTitle' => 'Delete',
+                            'isConfirmation' => true,
+                            'indexUrl' => 'files',
+                            'itemId' => $image->id,
+                        ]" />
+
+                        <a href="{{ route('files.edit', $image->id) }}" class="btn btn-warning btn-sm"><i
+                                class="fa fa-pen"></i> Edit</a>
                     </td>
                 </tr>
             @endforeach

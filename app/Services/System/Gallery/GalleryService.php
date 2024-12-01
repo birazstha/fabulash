@@ -15,10 +15,15 @@ class GalleryService extends Service
 
     public function store($request)
     {
+
         return DB::transaction(function () use ($request) {
             $data = $request->except('_token');
-            $data['created_by'] = authUser()->id;
-            $model = $this->model->create($data);
+            if (isset($request->galleryId)) {
+                $model = $this->getItemById($request->galleryId);
+            } else {
+                $data['created_by'] = authUser()->id;
+                $model = $this->model->create($data);
+            }
 
             foreach ($request->photos as $photo) {
                 $fileData = [

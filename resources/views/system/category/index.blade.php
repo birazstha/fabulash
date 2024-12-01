@@ -29,9 +29,9 @@
             <td>
                 @include('system.partials.editButton')
                 @include('system.partials.deleteButton')
-                <a href="{{ route('sub-categories.index', $item->id) }}" class="btn btn-info btn-sm">Sub Category
+                {{-- <a href="{{ route('sub-categories.index', $item->id) }}" class="btn btn-info btn-sm">Sub Category
                     ({{ $item->subCategories->count() }})
-                </a>
+                </a> --}}
             </td>
         </tr>
     @endforeach

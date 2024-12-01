@@ -5,10 +5,12 @@ use App\Http\Controllers\System\Auth\AuthController;
 use App\Http\Controllers\System\Category\CategoryController;
 use App\Http\Controllers\System\Category\SubCategoryController;
 use App\Http\Controllers\System\Config\ConfigController;
+use App\Http\Controllers\System\Config\FrontendConfigController;
 use App\Http\Controllers\System\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\System\Dashboard\DashboardController;
 use App\Http\Controllers\System\EmailTemplate\EmailTemplateController;
+use App\Http\Controllers\System\Enquiry\EnquiryController;
 use App\Http\Controllers\System\File\FileController;
 use App\Http\Controllers\System\Gallery\GalleryController;
 use App\Http\Controllers\System\Inventory\InventoryController;
@@ -20,6 +22,7 @@ use App\Http\Controllers\System\Permission\PermissionController;
 use App\Http\Controllers\System\Product\ProductController;
 use App\Http\Controllers\System\Profile\ProfileController;
 use App\Http\Controllers\System\Role\RoleController;
+use App\Http\Controllers\System\Service\ServiceController;
 use App\Http\Controllers\System\Slider\SliderController;
 use App\Http\Controllers\System\Testimonial\TestimonialController;
 use App\Http\Controllers\System\User\UserController;
@@ -106,7 +109,7 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
         Route::resource('/inventories', InventoryController::class);
 
         //Order
-        Route::resource('/orders', OrderController::class);
+        Route::resource('/orders', OrderController::class)->except('create');
 
         //Menu
         Route::resource('/menus', MenuController::class);
@@ -123,6 +126,15 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
         Route::resource('/galleries', GalleryController::class);
         Route::get('/galleries/change-status/{id}', [GalleryController::class, 'changeStatus']);
 
+        //Gallery
+        Route::resource('/services', ServiceController::class);
+        Route::get('/services/change-status/{id}', [ServiceController::class, 'changeStatus']);
+
+        //Frontend Config
+        Route::resource('/frontend-configs', FrontendConfigController::class);
+
+        //Enquiry
+        Route::resource('/enquiries', EnquiryController::class);
 
     });
 

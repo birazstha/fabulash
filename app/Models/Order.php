@@ -4,27 +4,24 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Spatie\Activitylog\LogOptions;
+
 
 class Order extends Model
 {
-    use HasFactory, LogsActivity;
+    use HasFactory;
+
     public $timestamps = true;
 
     public $guarded = ['id'];
 
-    protected static $logName = 'Order';
 
-    public function getActivitylogOptions(): LogOptions
+    public function customer()
     {
-        return LogOptions::defaults()
-            ->useLogName(self::$logName)
-            ->setDescriptionForEvent(fn(string $eventName) => "This model has been {$eventName}");
+        return $this->belongsTo(Customer::class);
     }
 
-    public function product()
+    public function orderProducts()
     {
-        return $this->belongsTo(Product::class);
+        return $this->hasMany(OrderProduct::class);
     }
 }

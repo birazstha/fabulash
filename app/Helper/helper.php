@@ -110,7 +110,7 @@ function indexImagePreview($item)
     $imagePath = asset($item->files()->value('path') . '/' . $item->files()->value('title'));
     return '
         <a class="image-link" href="' . $imagePath . '">
-            <img src="' . $imagePath . '" width="150px" alt="" class="img-thumbnail">
+            <img src="' . $imagePath . '" width="200px" alt="" class="img-thumbnail">
         </a>';
 }
 
@@ -140,4 +140,20 @@ function noDataFound($colspan)
 function showLink($item, $route)
 {
     return '<a href="' . route($route . '.show', $item->id) . '">' . $item->title . '</a>';
+}
+
+function generateOrderId()
+{
+    $prefix = "ORD";
+    $randomNum = rand(1000, 9999);
+    return $prefix . $randomNum;
+}
+
+
+function generateSlug($string)
+{
+    $slug = strtolower($string);
+    $slug = preg_replace('/[^a-z0-9]+/i', '-', $slug);
+    $slug = trim($slug, '-');
+    return $slug;
 }

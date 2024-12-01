@@ -34,7 +34,7 @@ class ProductService extends Service
         if (isset($request->sub_category_id)) {
             $query->where('sub_category_id', $request->sub_category_id);
         }
-        return $query->orderBy('updated_at', 'DESC')->get();
+        return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
 
 

@@ -45,7 +45,7 @@
     <hr>
     <div class="d-flex justify-content-between align-items-center">
         <h3>Pictures</h3>
-        <a href="{{ $indexUrl . '/create?product_id=' . $item->id }}" class="btn btn-info btn-sm">
+        <a href="{{ $indexUrl . '/create?gallery_id=' . $item->id }}" class="btn btn-info btn-sm">
             <i class="fa fa-plus"></i>&nbsp; Add
         </a>
     </div>
@@ -65,7 +65,7 @@
                     <td>
                         <a href="{{ asset($image->path . '/' . $image->title) }}" class="image-link">
                             <img src="{{ asset($image->path . '/' . $image->title) }}" alt="" class="img-thumbnail"
-                                width="200px">
+                                width="100px">
                         </a>
                     </td>
                     <td scope="col">

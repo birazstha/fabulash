@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
             $table->integer('price');
+            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->foreignId('sub_category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->boolean('status');
             $table->foreignId('created_by')->nullable()->constrained('users')->onDelete('set null');

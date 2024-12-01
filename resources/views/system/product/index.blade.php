@@ -35,7 +35,6 @@
     <th>S.N</th>
     <th>Title</th>
     <th>Category</th>
-    <th>Sub Category</th>
     <th>Price</th>
     <th>Status</th>
     <th>Action</th>
@@ -46,8 +45,7 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{{ $item->title }}</td>
-            <td>{{ $item->subCategory->parent->title }}</td>
-            <td>{{ $item->subCategory->title }}</td>
+            <td>{{ $item->category->title }}</td>
             <td>{{ convertToAmount($item->price) }}</td>
             <td>{!! statusBadge($item, $indexUrl) !!}</td>
             <td>

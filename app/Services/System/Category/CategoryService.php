@@ -20,7 +20,7 @@ class CategoryService extends Service
             $query->where('title', 'LIKE',  '%' . $request->keyword . '%');
         }
         $query->whereNull('parent_id');
-        return $query->orderBy('updated_at', 'DESC')->get();
+        return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
     
 }

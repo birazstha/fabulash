@@ -38,13 +38,7 @@
                 {{ $item->words ?? 'N/A' }}
             </td>
             <td>{{ $item->rank ?? 'N/A' }}</td>
-            <td>
-
-                {!! indexImagePreview($item) !!}
-                {{-- <a href="{{ asset($item->files()->value('path')) }}" class="image-link">
-                    <img src="{{ asset($item->files()->value('path')) }}" alt="" class="img-thumbnail" width="100px">
-                </a> --}}
-            </td>
+            <td>{!! indexImagePreview($item) !!}</td>
             <td>{!! statusBadge($item, $indexUrl) !!}</td>
             @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
                 <td>

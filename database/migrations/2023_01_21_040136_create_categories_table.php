@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('parent_id')->nullable();
             $table->string('title');
+            $table->string('slug');
             $table->boolean('status')->default(true);
             $table->integer('rank');
             $table->string('created_by')->nullable();

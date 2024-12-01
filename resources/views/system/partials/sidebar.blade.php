@@ -56,6 +56,21 @@
         'permission' => checkPermission('testimonials', 'GET'),
     ]" />
 
+    {{-- Services --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Service Management',
+        'route' => 'services',
+        'icon' => 'fas fa-heart',
+        'permission' => checkPermission('services', 'GET'),
+    ]" />
+
+    {{-- Enquiy Management --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Enquiy Management',
+        'route' => 'enquiries',
+        'icon' => 'fas fa-comment',
+        'permission' => checkPermission('enquiries', 'GET'),
+    ]" />
 
     {{-- Basic Setup --}}
     <x-system.sidebar-item :input="[
@@ -66,7 +81,7 @@
             [
                 'title' => 'Menu Management',
                 'route' => 'menus',
-                'icon' => 'fas fa-list',
+                'icon' => 'fas fa-clipboard-list',
                 'permission' => checkPermission('menus', 'GET'),
             ],
             //Category
@@ -126,11 +141,32 @@
 
 
     {{-- System Config --}}
-    <x-system.sidebar-item :input="[
+    {{-- <x-system.sidebar-item :input="[
         'title' => 'System Config',
         'route' => 'configs',
         'icon' => 'fas fa-wrench',
         'permission' => checkPermission('configs', 'GET'),
+    ]" /> --}}
+
+    {{-- System Config --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Configs',
+        'icon' => 'fas fa-briefcase',
+        'hasSubmenu' => true,
+        'subMenus' => [
+            [
+                'title' => 'Frontend Config',
+                'route' => 'frontend-configs',
+                'icon' => 'far fa-images',
+                'permission' => checkPermission('applicants', 'GET'),
+            ],
+            [
+                'title' => 'System Config',
+                'route' => 'configs',
+                'icon' => 'fas fa-bars',
+                'permission' => checkPermission('activity-logs', 'GET'),
+            ],
+        ],
     ]" />
 
     {{-- Log Management --}}

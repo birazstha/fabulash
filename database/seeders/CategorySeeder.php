@@ -19,43 +19,55 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'title' => 'Lashes Products', // Parent category
+                'title' => 'Accessories & Tools', // Parent category
                 'rank' => 1,
-                'subcategories' => [
-                    [
-                        'title' => 'Accessories & Tools',
-                        'rank' => 1,
+                // 'subcategories' => [
+                //     [
+                //         'title' => 'Accessories & Tools',
+                //         'rank' => 1,
 
-                    ],
-                    [
-                        'title' => 'Liquids',
-                        'rank' => 2,
-                    ],
-                    [
-                        'title' => 'Lash Tray',
-                        'rank' => 3,
-                    ],
-                    [
-                        'title' => 'Tweezers',
-                        'rank' => 4,
-                    ],
-                ],
+                //     ],
+                //     [
+                //         'title' => 'Liquids',
+                //         'rank' => 2,
+                //     ],
+                //     [
+                //         'title' => 'Lash Tray',
+                //         'rank' => 3,
+                //     ],
+                //     [
+                //         'title' => 'Tweezers',
+                //         'rank' => 4,
+                //     ],
+                // ],
             ],
             [
-                'title' => 'Nail Extension', // Parent category
+                'title' => 'Single-Use', // Parent category
                 'rank' => 2,
-                'subcategories' => [
-                    [
-                        'title' => 'Starter Kits',
-                        'rank' => 1,
-                    ],
-                    [
-                        'title' => 'Nail Files and Buffers',
-                        'rank' => 2,
+                // 'subcategories' => [
+                //     [
+                //         'title' => 'Starter Kits',
+                //         'rank' => 1,
+                //     ],
+                //     [
+                //         'title' => 'Nail Files and Buffers',
+                //         'rank' => 2,
 
-                    ],
-                ],
+                //     ],
+                // ],
             ],
+            [
+                'title' => 'Liquids',
+                'rank' => 3,
+            ],
+            [
+                'title' => 'Lash Tray',
+                'rank' => 4,
+            ],
+            [
+                'title' => 'Tweezers',
+                'rank' => 5,
+            ]
         ];
 
         foreach ($categories as $category) {
@@ -65,6 +77,7 @@ class CategorySeeder extends Seeder
                 [
                     'parent_id' => null, // No parent for main category
                     'rank' => $category['rank'],
+                    'slug' => generateSlug($category['title']),
                     'status' => true,
                     'created_by' => 1,
                     'created_at' => now(),
@@ -73,26 +86,26 @@ class CategorySeeder extends Seeder
             );
 
             // Retrieve the ID of the parent category
-            $parentId = DB::table('categories')
-                ->where('title', $category['title'])
-                ->value('id');
+            // $parentId = DB::table('categories')
+            //     ->where('title', $category['title'])
+            //     ->value('id');
 
             // Insert subcategories
-            if (isset($category['subcategories'])) {
-                foreach ($category['subcategories'] as $subcategory) {
-                    DB::table('categories')->updateOrInsert(
-                        ['title' => $subcategory['title']], // Unique field
-                        [
-                            'parent_id' => $parentId, // Assign parent ID
-                            'rank' => $subcategory['rank'],
-                            'status' => true,
-                            'created_by' => 1,
-                            'created_at' => now(),
-                            'updated_at' => now(),
-                        ]
-                    );
-                }
-            }
+            // if (isset($category['subcategories'])) {
+            //     foreach ($category['subcategories'] as $subcategory) {
+            //         DB::table('categories')->updateOrInsert(
+            //             ['title' => $subcategory['title']], // Unique field
+            //             [
+            //                 'parent_id' => $parentId, // Assign parent ID
+            //                 'rank' => $subcategory['rank'],
+            //                 'status' => true,
+            //                 'created_by' => 1,
+            //                 'created_at' => now(),
+            //                 'updated_at' => now(),
+            //             ]
+            //         );
+            //     }
+            // }
         }
     }
 }

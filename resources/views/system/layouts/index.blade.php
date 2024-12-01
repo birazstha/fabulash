@@ -56,6 +56,22 @@
                         </table>
                     </div>
 
+                    @php
+                        // Get the current page, total records, and records per page
+                        $current_page = $items->currentPage();
+                        $total_records = $items->total();
+                        $records_per_page = $items->perPage();
+
+                        // Calculate the starting and ending record numbers for the current page
+                        $start_record = ($current_page - 1) * $records_per_page + 1;
+                        $end_record = min($current_page * $records_per_page, $total_records);
+
+                    @endphp
+
+                    @if ($total_records != 0)
+                        <p>Showing {{ $start_record }} to {{ $end_record }} of {{ $total_records }} entries.</p>
+                    @endif
+
                     @if ($items instanceof \Illuminate\Pagination\LengthAwarePaginator)
                         {{ isset($items) ? $items->withQueryString()->links() : '' }}
                     @endif

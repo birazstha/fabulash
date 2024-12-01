@@ -2,50 +2,23 @@
 
 namespace App\Http\Controllers\System\Dashboard;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use PDO;
+use App\Http\Controllers\ResourceController;
+use App\Services\System\Dashboard\DashboardService;
 
-class DashboardController extends Controller
+class DashboardController extends ResourceController
 {
-
-    protected $model, $indexUrl, $moduleName;
-    public function __construct()
+    public function __construct(DashboardService $service)
     {
-        $this->indexUrl = 'home';
-        $this->moduleName = 'Home';
+        parent::__construct($service);
     }
 
-    public function indexUrl()
+    public function moduleName()
     {
-        return $this->indexUrl . '' . '.index';
+        return 'dashboards';
     }
 
-    public function baseBreadCrumb()
+    public function folderName()
     {
-        return [
-            'title' => 'Dashboard',
-            'link' =>  'home.index',
-            'active' => true
-        ];
-    }
-
-    public function breadCrumbForIndex()
-    {
-        $breadCrumb = [
-            $this->baseBreadCrumb(), [
-                'title' => $this->moduleName,
-                'link' => $this->indexUrl(),
-            ]
-        ];
-        return $breadCrumb;
-    }
-
-    public function index()
-    {
-        $data['indexUrl'] = $this->indexUrl;
-        $data['moduleName'] = $this->moduleName;
-        $data['breadCrumb'] = $this->breadCrumbForIndex();
-        return view('system.dashboard.index', $data);
+        return 'dashboard';
     }
 }

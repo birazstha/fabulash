@@ -1,13 +1,15 @@
 @extends('system.layouts.index')
 
+@section('create')
+@endsection
 
 @section('search')
     <x-system.form :action="$indexUrl">
         <x-slot name="inputs">
             <x-system.search :input="[
-                'name' => 'keyword',
-                'value' => Request::input('keyword') ?? old('keyword'),
-                'placeholder' => 'Enter Keyword',
+                'name' => 'order_number',
+                'value' => Request::input('order_number') ?? old('order_number'),
+                'placeholder' => 'Enter Order ID',
             ]" />
         </x-slot>
     </x-system.form>
@@ -15,13 +17,11 @@
 
 @section('headings')
     <th>S.N</th>
-    <th>Name</th>
-    <th>Post</th>
-    <th>Company</th>
-    <th>Words</th>
-    <th>Rank</th>
-    <th>Image</th>
-    <th>Status</th>
+    <th>Order ID</th>
+    <th>Customer Name</th>
+    <th>Total Amount</th>
+    <th>Order At</th>
+    <th>Payment Status</th>
     @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
         <th>Action</th>
     @endif
@@ -31,27 +31,24 @@
     @foreach ($items as $key => $item)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{!! $item->name ?? 'N/A' !!}</td>
-            <td>{{ $item->post ?? 'N/A' }}</td>
-            <td>{{ $item->company ?? 'N/A' }}</td>
-            <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis;">
-                {{ $item->words ?? 'N/A' }}
-            </td>
-            <td>{{ $item->rank ?? 'N/A' }}</td>
+            <td>{!! $item->order_number ?? 'N/A' !!}</td>
+            <td>{{ $item->customer->name ?? 'N/A' }}</td>
+            <td>{{ convertToAmount($item->total_amount) ?? 'N/A' }}</td>
+            <td>{{ convertToTime($item->created_at) ?? 'N/A' }}</td>
             <td>
-
-                {!! indexImagePreview($item) !!}
-                {{-- <a href="{{ asset($item->files()->value('path')) }}" class="image-link">
-                    <img src="{{ asset($item->files()->value('path')) }}" alt="" class="img-thumbnail" width="100px">
-                </a> --}}
+                @if ($item->payment_status == 'unverified')
+                    <span class="badge badge-warning">Unverified</span>
+                @elseif($item->payment_status == 'verified')
+                    <span class="badge badge-warning">Unverified</span>
+                @elseif($item->payment_status == 'rejected')
+                    <span class="badge badge-warning">Rejected</span>
+                @endif
             </td>
-            <td>{!! statusBadge($item, $indexUrl) !!}</td>
             @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
-                <td>
-                    <div class="d-flex">
-                        @include('system.partials.editButton')
-                        @include('system.partials.deleteButton')
-                    </div>
+                <td class="d-flex justify-content-center">
+                    @include('system.partials.editButton')
+                    @include('system.partials.deleteButton')
+                    @include('system.partials.showButton')
                 </td>
             @endif
         </tr>

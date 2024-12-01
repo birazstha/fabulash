@@ -1,21 +1,33 @@
 @extends('system.layouts.form')
 
 @section('form')
-    {{-- Title --}}
-    <x-system.input :input="[
-        'name' => 'title',
-        'required' => true,
-        'value' => $item->title ?? old('title'),
-        'autofocus' => true,
-    ]" />
+    @if (!isset(request()->gallery_id))
+        {{-- Title --}}
+        <x-system.input :input="[
+            'name' => 'title',
+            'required' => true,
+            'value' => $item->title ?? old('title'),
+            'autofocus' => true,
+        ]" />
 
-    {{-- Rank --}}
-    <x-system.input :input="[
-        'name' => 'rank',
-        'type' => 'number',
-        'required' => true,
-        'value' => $item->rank ?? old('rank'),
-    ]" />
+        {{-- Rank --}}
+        <x-system.input :input="[
+            'name' => 'rank',
+            'type' => 'number',
+            'required' => true,
+            'value' => $item->rank ?? old('rank'),
+        ]" />
+
+        {{-- Status --}}
+        <x-system.radio :input="[
+            'name' => 'status',
+            'options' => $status,
+            'value' => $item->status ?? true,
+        ]" />
+    @endif
+
+    <input type="hidden" value="{{ request()->gallery_id ?? null }}" name="galleryId">
+
 
     @if (!isset($item))
         <div class="toggle-file">
@@ -85,14 +97,6 @@
             {{-- Modal Ends --}}
         </div>
     @endif
-
-
-    {{-- Status --}}
-    <x-system.radio :input="[
-        'name' => 'status',
-        'options' => $status,
-        'value' => $item->status ?? true,
-    ]" />
 @endsection
 
 @section('js')

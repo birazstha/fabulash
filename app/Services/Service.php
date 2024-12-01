@@ -33,7 +33,7 @@ class Service
             $query->where('parent_id', $request->id,);
         }
 
-        return $query->orderBy('updated_at', 'DESC')->get();
+        return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
 
     public function store($request)

@@ -29,6 +29,16 @@ class CustomerSeeder extends Seeder
                 'google_avatar' => null,
 
             ],
+            [
+                'name' => 'Sujata Bajracharya',
+                'username' => 'sujata_bajracharya',
+                'contact_number' => '9806523456',
+                'address' => 'Pimbahal, Lalitpur',
+                'password' => Hash::make('Sujata@123'),
+                'email' => 'sujata@gmail.com',
+                'google_avatar' => null,
+
+            ],
         ];
 
         foreach ($users as $user) {

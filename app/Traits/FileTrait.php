@@ -141,22 +141,19 @@ trait FileTrait
 
     public function updateBase64Image($fileData)
     {
-        //Delete older File
-        $filePath = $fileData['model']->path . '/' . $fileData['model']->title;
-        if (File::exists($filePath)) {
-            File::delete($filePath);
+        if ($fileData['model']->files()->exists()) {
+            $filePath = $fileData['model']->files()->value('path') . '/' . $fileData['model']->files()->value('title');
+            if (File::exists($filePath)) {
+                File::delete($filePath);
+            }
+            // Decode the base64 data to binary
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileData['file']));
+            // Define the upload directory path
+            $uploadPath = public_path($filePath);
+            // Save the image to the uploads directory
+            file_put_contents($uploadPath, $imageData);
+        } else {
+            $this->storeBase64Image($fileData);
         }
-
-        // Decode the base64 data to binary
-        $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileData['file']));
-
-        // Define the upload directory path
-        $uploadPath = public_path($filePath);
-
-
-
-
-        // Save the image to the uploads directory
-        file_put_contents($uploadPath, $imageData);
     }
 }

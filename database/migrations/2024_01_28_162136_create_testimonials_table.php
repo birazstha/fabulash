@@ -10,10 +10,8 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('words');
             $table->string('name');
-            $table->string('post')->nullable();
-            $table->string('company')->nullable();
+            $table->string('words');
             $table->boolean('status');
             $table->integer('rank');
             $table->timestamps();

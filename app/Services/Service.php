@@ -73,7 +73,7 @@ class Service
                 $fileData = [
                     'file' => $request->cropped_photo,
                     'model' => $update,
-                    'path' => 'uploads/' . $this->getTableName($request->folder),
+                    'path' => 'uploads/' . $this->getFolderName($request->folder),
                 ];
                 $this->updateBase64Image($fileData);
             }

@@ -16,8 +16,6 @@
 @section('headings')
     <th>S.N</th>
     <th>Name</th>
-    <th>Post</th>
-    <th>Company</th>
     <th>Words</th>
     <th>Rank</th>
     <th>Image</th>
@@ -32,8 +30,6 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{!! $item->name ?? 'N/A' !!}</td>
-            <td>{{ $item->post ?? 'N/A' }}</td>
-            <td>{{ $item->company ?? 'N/A' }}</td>
             <td style="max-width: 400px; overflow: hidden; text-overflow: ellipsis;">
                 {{ $item->words ?? 'N/A' }}
             </td>

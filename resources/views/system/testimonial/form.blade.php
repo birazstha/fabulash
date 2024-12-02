@@ -8,18 +8,6 @@
         'required' => true,
     ]" />
 
-    {{-- Post --}}
-    <x-system.input :input="[
-        'name' => 'post',
-        'required' => true,
-        'value' => $item->post ?? old('post'),
-    ]" />
-
-    {{-- Company --}}
-    <x-system.input :input="[
-        'name' => 'company',
-        'value' => $item->company ?? old('company'),
-    ]" />
 
     {{-- Words --}}
     <x-system.textarea :input="[

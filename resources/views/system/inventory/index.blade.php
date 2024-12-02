@@ -31,6 +31,7 @@
             <td>{{ $item->current_stock }}</td>
             <td>
                 @include('system.partials.showButton')
+                
             </td>
         </tr>
     @endforeach

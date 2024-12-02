@@ -1,29 +1,23 @@
 @extends('system.layouts.show')
 
+@section('back')
+
+
+@show
+
 @section('content-first-left')
     {{-- Name --}}
     <x-system.detail :input="[
         'label' => 'Name',
-        'value' => $item->title ?? 'N/A',
+        'value' => $item->product->title ?? 'N/A',
     ]" />
 
     {{-- Category --}}
     <x-system.detail :input="[
         'label' => 'Category',
-        'value' => $item->subCategory->parent->title ?? 'N/A',
+        'value' => $item->product->category->title ?? 'N/A',
     ]" />
 
-    {{-- Sub Category --}}
-    <x-system.detail :input="[
-        'label' => 'Sub Category',
-        'value' => $item->subCategory->title ?? 'N/A',
-    ]" />
-
-    {{-- Price --}}
-    <x-system.detail :input="[
-        'label' => 'Price',
-        'value' => convertToAmount($item->price) ?? 'N/A',
-    ]" />
 @endsection
 
 @section('content-first-right')
@@ -32,33 +26,57 @@
         'label' => 'Created At',
         'value' => $item->created_at ?? '-',
     ]" />
-
-    {{-- Created By --}}
-    <x-system.detail :input="[
-        'label' => 'Created By',
-        'value' => $item->user->name ?? '-',
-    ]" />
-
-    <div class="row">
-        <div class="col-sm-3">
-            <label for="name">Status</label>
-        </div>
-        <div class="col-sm-9">
-            <p>: &nbsp; &nbsp;
-                {!! statusBadge($item, $indexUrl) !!}
-            </p>
-        </div>
-    </div>
 @endsection
 
 @section('content-second')
     <hr>
     <div class="d-flex justify-content-between align-items-center">
-        <h3>Product Images</h3>
-        <a href="{{ $indexUrl . '/create?product_id=' . $item->id }}" class="btn btn-info btn-sm">
-            <i class="fa fa-plus"></i>&nbsp; Add
-        </a>
+        <h3>Inventory Log</h3>
 
+
+        <div>
+            {{-- Add --}}
+            <x-system.modal :input="[
+                'modalTitle' => 'Add Inventory',
+                'btnTitle' => 'Add',
+                'btnColor' => 'info',
+                'route' => 'categories.index',
+                'icon' => 'fas fa-upload',
+                'method' => 'post',
+                'id' => 'uploadTeachers',
+            ]">
+                <x-slot name="body">
+                    <div class="text-start">
+                        <x-system.input :input="[
+                            'name' => 'quantity',
+                            'required' => true,
+                            'isModal' => true,
+                        ]" />
+                    </div>
+                </x-slot>
+            </x-system.modal>
+
+            {{-- Remove --}}
+            <x-system.modal :input="[
+                'modalTitle' => 'Add Inventory',
+                'btnTitle' => 'Deduct',
+                'btnColor' => 'danger',
+                'route' => 'categories.index',
+                'icon' => 'fas fa-upload',
+                'method' => 'post',
+                'id' => 'uploadTeachers',
+            ]">
+                <x-slot name="body">
+                    <div class="text-start">
+                        <x-system.input :input="[
+                            'name' => 'quantity',
+                            'required' => true,
+                            'isModal' => true,
+                        ]" />
+                    </div>
+                </x-slot>
+            </x-system.modal>
+        </div>
 
     </div>
     <hr>
@@ -72,36 +90,7 @@
         </thead>
         <tbody>
 
-            @forelse ($item->files as $key => $file)
-                <tr class="text-center">
-                    <th scope="row">{{ $key + 1 }}</th>
-                    <td>
-                        <a href="{{ asset($file->path . '/' . $file->title) }}" class="image-link">
-                            <img src="{{ asset($file->path . '/' . $file->title) }}" alt="" class="img-thumbnail"
-                                width="150px">
-                        </a>
 
-
-                    </td>
-                    <td>
-                        <x-system.delete :input="[
-                            'btnColor' => 'primary',
-                            'id' => 'delete-file-' . $file->id,
-                            'btnTitle' => 'Delete',
-                            'isConfirmation' => true,
-                            'indexUrl' => 'files',
-                            'itemId' => $file->id,
-                        ]" />
-
-                        <a href="{{ route('files.edit', $file->id) }}" class="btn btn-warning btn-sm"><i
-                                class="fa fa-pen"></i> Edit</a>
-                    </td>
-                </tr>
-
-            @empty
-
-                {!! noDataFound(3) !!}
-            @endforelse
 
         </tbody>
     </table>

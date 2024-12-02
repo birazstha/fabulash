@@ -10,14 +10,14 @@
     {{-- Category --}}
     <x-system.detail :input="[
         'label' => 'Category',
-        'value' => $item->subCategory->parent->title ?? 'N/A',
+        'value' => $item->category->title ?? 'N/A',
     ]" />
 
     {{-- Sub Category --}}
-    <x-system.detail :input="[
+    {{-- <x-system.detail :input="[
         'label' => 'Sub Category',
         'value' => $item->subCategory->title ?? 'N/A',
-    ]" />
+    ]" /> --}}
 
     {{-- Price --}}
     <x-system.detail :input="[

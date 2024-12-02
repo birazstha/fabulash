@@ -2,6 +2,8 @@
 
 namespace App\Services\System\Dashboard;
 
+use App\Models\Customer;
+use App\Models\Enquiry;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Service as ModelsService;
@@ -10,15 +12,19 @@ use Illuminate\Http\Request;
 
 class DashboardService extends Service
 {
-    protected $product, $order;
+    protected $product, $order, $customer, $enquiry;
     public function __construct(
         ModelsService $model,
         Product $product,
-        Order $order
+        Order $order,
+        Customer $customer,
+        Enquiry $enquiry,
     ) {
         parent::__construct($model);
         $this->product = $product;
         $this->order = $order;
+        $this->customer = $customer;
+        $this->enquiry = $enquiry;
     }
 
     public function indexPageData(Request $request)
@@ -27,6 +33,8 @@ class DashboardService extends Service
             'items' => $this->getAllData($request),
             'products' => $this->product->count(),
             'orders' => $this->order->count(),
+            'customers' => $this->customer->count(),
+            'enquiries' => $this->enquiry->count(),
         ];
     }
 }

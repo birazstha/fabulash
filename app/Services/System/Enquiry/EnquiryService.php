@@ -17,7 +17,7 @@ class EnquiryService extends Service
     {
         $query = $this->query();
         if (isset($request->keyword)) {
-            $query->where('name', 'LIKE',  '%' . $request->keyworsd . '%');
+            $query->where('name', 'LIKE',  '%' . $request->keyword . '%');
         }
         return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }

@@ -13,14 +13,15 @@
                         @show
                     </div>
 
-                    @section('back')
-                        <div class="card-tools">
+                    <div class="card-tools">
+                        @section('back')
                             @include('system.partials.createButton')
                             @include('system.partials.editButton')
-                            <a href="{{ url()->previous() }}" class="btn btn-info btn-sm"><i class="fas fa-chevron-left"></i>
-                                Back</a>
-                        </div>
-                    @show
+
+                        @show
+                        <a href="{{ url()->previous() }}" class="btn btn-info btn-sm"><i class="fas fa-chevron-left"></i>
+                            Back</a>
+                    </div>
                 </div>
 
 

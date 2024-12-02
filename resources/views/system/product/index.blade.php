@@ -13,6 +13,7 @@
             <input type="hidden" id="old_category_id" value="{{ request()->category_id }}">
             <input type="hidden" id="old_sub_category_id" value="{{ request()->sub_category_id }}">
 
+            {{-- Category --}}
             <x-system.select-search :input="[
                 'name' => 'category_id',
                 'width' => '170px',
@@ -20,12 +21,12 @@
                 'value' => Request::input('category_id') ?? old('category_id'),
             ]" />
 
-            <x-system.select-search :input="[
+            {{-- <x-system.select-search :input="[
                 'name' => 'sub_category_id',
                 'width' => '180px',
                 'options' => [],
                 'value' => Request::input('sub_category_id'),
-            ]" />
+            ]" /> --}}
 
         </x-slot>
     </x-system.form>

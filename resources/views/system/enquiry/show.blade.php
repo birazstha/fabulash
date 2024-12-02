@@ -1,8 +1,9 @@
 @extends('system.layouts.show')
 
-@section('title')
-    <h3> {{ $$moduleName ?? '' }} Details</h3>
+
+@section('back')
 @endsection
+
 
 @section('content-first-left')
     {{-- Name --}}
@@ -23,27 +24,6 @@
         'value' => $item->contact ?? 'N/A',
     ]" />
 
-    {{-- Country --}}
-    <x-system.detail :input="[
-        'label' => 'Country',
-        'value' => $item->country->name ?? 'N/A',
-    ]" />
-
-    {{-- Area of Interest --}}
-
-
-    @if ($item->subject->title != 'Others')
-        <x-system.detail :input="[
-            'label' => 'Area Of Interest',
-            'value' => $item->subject->title ?? 'N/A',
-        ]" />
-    @else
-        <x-system.detail :input="[
-            'label' => 'Area Of Interest',
-            'value' => $item->other_area_of_interest ?? 'N/A',
-        ]" />
-    @endif
-
     {{-- Date --}}
     <x-system.detail :input="[
         'label' => 'Received At',
@@ -54,5 +34,7 @@
 @section('content-second')
     <hr>
     <h3 class="border-bottom">Message</h3>
-    <i> {!! $item->message !!}</i>
+    <div class="card p-4 mt-3" style="min-height: 200px">
+        <i> {!! $item->message !!}</i>
+    </div>
 @endsection

@@ -66,7 +66,7 @@
 
     {{-- Enquiy Management --}}
     <x-system.sidebar-item :input="[
-        'title' => 'Enquiy Management',
+        'title' => 'Enquiry Management',
         'route' => 'enquiries',
         'icon' => 'fas fa-comment',
         'permission' => checkPermission('enquiries', 'GET'),

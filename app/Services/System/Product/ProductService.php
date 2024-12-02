@@ -20,15 +20,17 @@ class ProductService extends Service
 
     public function getAllData($request)
     {
-        $query = $this->query();
+        $query = $this->query()->with('category');
         if (isset($request->keyword)) {
             $query->where('title', 'LIKE',  '%' . $request->keyword . '%');
         }
 
         if (isset($request->category_id)) {
-            $query->whereHas('subCategory', function ($subQuery) use ($request) {
-                $subQuery->where('parent_id', $request->category_id);
-            });
+            // $query->whereHas('subCategory', function ($subQuery) use ($request) {
+            //     $subQuery->where('parent_id', $request->category_id);
+            // });
+
+            $query->where('category_id', $request->category_id);
         }
 
         if (isset($request->sub_category_id)) {

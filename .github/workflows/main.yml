@@ -18,12 +18,12 @@ jobs:
         id: determine_ftp
         run: |
           if [[ "${{ github.ref }}" == 'refs/heads/master' ]]; then
-            echo "ftp_server=ftp.nzw.gfl.temporary.site" >> $GITHUB_ENV
+            echo "ftp_server= ftp.rajphotopasal.com" >> $GITHUB_ENV
             echo "ftp_username=admin@xcendtech.com" >> $GITHUB_ENV
             echo "ftp_password=6lJI.1_FTXPH" >> $GITHUB_ENV
 
           elif [[ "${{ github.ref }}" == 'refs/heads/dev' ]]; then
-            echo "ftp_server=ftp.nzw.gfl.temporary.site" >> $GITHUB_ENV
+            echo "ftp_server= ftp.rajphotopasal.com" >> $GITHUB_ENV
             echo "ftp_username=admin@dev.glamlab.com.np" >> $GITHUB_ENV
             echo "ftp_password=~vW@pFzdGF~H" >> $GITHUB_ENV
           else

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\System\Inventory;
 
 use App\Http\Controllers\ResourceController;
 use App\Services\System\Inventory\InventoryService;
+use Illuminate\Http\Request;
 
 class InventoryController extends ResourceController
 {
@@ -21,5 +22,10 @@ class InventoryController extends ResourceController
     public function folderName()
     {
         return 'inventory';
+    }
+
+    public function addInventory(Request $request)
+    {
+        dd($request->all());
     }
 }

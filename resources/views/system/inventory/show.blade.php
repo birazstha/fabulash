@@ -33,14 +33,13 @@
     <div class="d-flex justify-content-between align-items-center">
         <h3>Inventory Log</h3>
 
-
         <div>
             {{-- Add --}}
             <x-system.modal :input="[
                 'modalTitle' => 'Add Inventory',
                 'btnTitle' => 'Add',
-                'btnColor' => 'info',
-                'route' => 'categories.index',
+                'btnColor' => 'success',
+                'route' => 'inventories.add',
                 'icon' => 'fas fa-upload',
                 'method' => 'post',
                 'id' => 'uploadTeachers',
@@ -62,7 +61,7 @@
                 'btnTitle' => 'Deduct',
                 'btnColor' => 'danger',
                 'route' => 'categories.index',
-                'icon' => 'fas fa-upload',
+                'icon' => 'fas fa-minus',
                 'method' => 'post',
                 'id' => 'uploadTeachers',
             ]">

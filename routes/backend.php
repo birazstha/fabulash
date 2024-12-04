@@ -104,9 +104,9 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
         Route::resource('/testimonials', TestimonialController::class);
         Route::get('/testimonials/change-status/{id}', [TestimonialController::class, 'changeStatus']);
 
-
-        //File
+        //Inventory
         Route::resource('/inventories', InventoryController::class);
+        Route::post('/inventories/add', [InventoryController::class, 'addInventory'])->name('inventories.add');
 
         //Order
         Route::resource('/orders', OrderController::class)->except('create');
@@ -135,7 +135,6 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //Enquiry
         Route::resource('/enquiries', EnquiryController::class);
-
     });
 
 

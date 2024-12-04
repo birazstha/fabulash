@@ -59,7 +59,7 @@ jobs:
           DB_PORT: 3306
           DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'biraj_db_fabulash_live' || 'biraj_db_fabulash_dev' }}
           DB_USERNAME: biraj_test_admin
-          DB_PASSWORD: 'CUAGV(YctIJL'
+          DB_PASSWORD: 'Biraj@224973'
 
       - name: Database seeding
         run: php artisan db:seed
@@ -69,4 +69,4 @@ jobs:
           DB_PORT: 3306
           DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'biraj_db_fabulash_live' || 'biraj_db_fabulash_dev' }}
           DB_USERNAME: biraj_test_admin
-          DB_PASSWORD: 'RS$Z{(W(wo)I'
+          DB_PASSWORD: 'Biraj@224973'

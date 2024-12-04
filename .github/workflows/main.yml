@@ -1,0 +1,72 @@
+name: Laravel Database Migration
+
+on:
+  push:
+    branches:
+      # - master
+      - dev
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Get Latest Code
+        uses: actions/checkout@v3
+
+      - name: Determine FTP Account
+        id: determine_ftp
+        run: |
+          if [[ "${{ github.ref }}" == 'refs/heads/master' ]]; then
+            echo "ftp_server=ftp.nzw.gfl.temporary.site" >> $GITHUB_ENV
+            echo "ftp_username=admin@xcendtech.com" >> $GITHUB_ENV
+            echo "ftp_password=6lJI.1_FTXPH" >> $GITHUB_ENV
+
+          elif [[ "${{ github.ref }}" == 'refs/heads/dev' ]]; then
+            echo "ftp_server=ftp.nzw.gfl.temporary.site" >> $GITHUB_ENV
+            echo "ftp_username=admin@dev.glamlab.com.np" >> $GITHUB_ENV
+            echo "ftp_password=~vW@pFzdGF~H" >> $GITHUB_ENV
+          else
+            echo "ftp_server=unknown" >> $GITHUB_ENV
+            echo "ftp_username=unknown" >> $GITHUB_ENV
+            echo "ftp_password=unknown" >> $GITHUB_ENV
+          fi
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ env.ftp_server }}
+          username: ${{ env.ftp_username }}
+          password: ${{ env.ftp_password }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, pdo, pdo_mysql
+
+      - name: Copy .env.example
+        run: cp .env.example .env
+
+      - name: Install dependencies
+        run: composer install --ignore-platform-reqs --no-progress --no-suggest
+
+      - name: Database migration
+        run: php artisan migrate
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 192.185.52.108
+          DB_PORT: 3306
+          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'nzwgflte_db_xcend' || 'nzwgflte_db_xcend_dev' }}
+          DB_USERNAME: nzwgflte_admin
+          DB_PASSWORD: '_pOsyZk_=WA,'
+
+      - name: Database seeding
+        run: php artisan db:seed
+        env:
+          DB_CONNECTION: mysql
+          DB_HOST: 192.185.52.108
+          DB_PORT: 3306
+          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'nzwgflte_db_xcend' || 'nzwgflte_db_xcend_dev' }}
+          DB_USERNAME: nzwgflte_admin
+          DB_PASSWORD: '_pOsyZk_=WA,'

@@ -55,18 +55,18 @@ jobs:
         run: php artisan migrate
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 192.185.52.108
+          DB_HOST: 198.251.84.200
           DB_PORT: 3306
-          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'nzwgflte_db_xcend' || 'nzwgflte_db_xcend_dev' }}
-          DB_USERNAME: nzwgflte_admin
-          DB_PASSWORD: '_pOsyZk_=WA,'
+          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'biraj_db_fabulash_live' || 'biraj_db_fabulash_dev' }}
+          DB_USERNAME: biraj_test_admin
+          DB_PASSWORD: 'CUAGV(YctIJL'
 
       - name: Database seeding
         run: php artisan db:seed
         env:
           DB_CONNECTION: mysql
-          DB_HOST: 192.185.52.108
+          DB_HOST: 198.251.84.200
           DB_PORT: 3306
-          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'nzwgflte_db_xcend' || 'nzwgflte_db_xcend_dev' }}
-          DB_USERNAME: nzwgflte_admin
-          DB_PASSWORD: '_pOsyZk_=WA,'
+          DB_DATABASE: ${{ github.ref == 'refs/heads/master' && 'biraj_db_fabulash_live' || 'biraj_db_fabulash_dev' }}
+          DB_USERNAME: biraj_test_admin
+          DB_PASSWORD: 'RS$Z{(W(wo)I'

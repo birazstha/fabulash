@@ -10,6 +10,11 @@ class Customer extends Model
     use HasFactory;
 
     public $timestamps = true;
-    
+
     public $guarded = ['id'];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

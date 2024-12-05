@@ -10,6 +10,9 @@
     {{-- Customer --}}
     <x-system.detail :input="[
         'label' => 'Name',
+        'isLink' => true,
+        'route' => 'customers.show',
+        'id' => $item->customer->id,
         'value' => $item->customer->name ?? 'N/A',
     ]" />
 
@@ -83,7 +86,7 @@
                 <tr class="text-center">
                     <td scope="col">{{ $key + 1 }}</td>
                     <td scope="col">{{ $orderProduct->product->title }}</td>
-                    <td scope="col">{{ $orderProduct->quantity .' pc' }}</td>
+                    <td scope="col">{{ $orderProduct->quantity . ' pc' }}</td>
                     <td scope="col">{{ convertToAmount($orderProduct->product->price) }}</td>
                     <td scope="col">{{ convertToAmount($orderProduct->product->price * $orderProduct->quantity) }}</td>
                 </tr>
@@ -95,7 +98,7 @@
                         {{ convertToAmount(
                             $item->orderProducts->sum(function ($orderProduct) {
                                 return $orderProduct->product->price * $orderProduct->quantity;
-                            })
+                            }),
                         ) }}
                     </strong>
                 </td>

@@ -11,4 +11,14 @@ class CustomerService extends Service
     {
         parent::__construct($model);
     }
+
+    public function getAllData($request)
+    {
+        $query = $this->query();
+        if (isset($request->keyword)) {
+            $query->where('name', 'LIKE',  '%' . $request->keyword . '%');
+        }
+
+        return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
+    }
 }

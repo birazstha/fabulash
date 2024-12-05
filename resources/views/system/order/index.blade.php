@@ -11,6 +11,14 @@
                 'value' => Request::input('order_number') ?? old('order_number'),
                 'placeholder' => 'Enter Order ID',
             ]" />
+
+            {{-- Date --}}
+            <x-system.search :input="[
+                'name' => 'dates',
+                'required' => true,
+                'value' => Request::input('dates') ?? old('dates'),
+            ]" />
+
         </x-slot>
     </x-system.form>
 @endsection
@@ -53,4 +61,44 @@
             @endif
         </tr>
     @endforeach
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+@endsection
+
+@section('js')
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script>
+        $(function() {
+            const inputField = $('input[name="dates"]');
+    
+
+            inputField.daterangepicker({
+                autoUpdateInput: false, // Prevents auto-population
+                opens: 'left',
+                locale: {
+                    format: 'YYYY/MM/DD' // Specifies the date format
+                }
+            });
+
+            // On showing the date range picker, prefill with '2024/01/01'
+            inputField.on('show.daterangepicker', function(ev, picker) {
+                picker.setStartDate('2024/01/01');
+                picker.setEndDate('2024/01/01');
+            });
+
+            // Update the input field on apply
+            inputField.on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format(
+                    'YYYY/MM/DD'));
+            });
+
+            // Clear the input field on cancel
+            inputField.on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 @endsection

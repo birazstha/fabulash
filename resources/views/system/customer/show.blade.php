@@ -1,5 +1,8 @@
 @extends('system.layouts.show')
 
+@section('back')
+@endsection
+
 @section('content-first-left')
     {{-- Name --}}
     <x-system.detail :input="[
@@ -55,16 +58,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="text-center">
-                <td scope="col">1</td>
-                <td scope="col">2J423J3</td>
-                <td scope="col">2024-01-01</td>
-                <td scope="col">
-                    <a href="" class="btn btn-info btn-sm">
-                        <i class="fa fa-eye"></i>
-                    </a>
-                </td>
-            </tr>
+
+            @foreach ($item->orders as $key => $order)
+                <tr class="text-center">
+                    <td scope="col">{{ $key + 1 }}</td>
+                    <td scope="col">{{ $order->order_number }}</td>
+                    <td scope="col">{{ convertToDate($order->created_at) }}</td>
+                    <td scope="col">
+                        <a href="{{ route('orders.show', $order->id) }}" class="btn btn-info btn-sm">
+                            <i class="fa fa-eye"></i>
+                        </a>
+                    </td>
+                </tr>
+            @endforeach
+
+
 
         </tbody>
     </table>

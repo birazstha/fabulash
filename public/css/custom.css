@@ -27,10 +27,12 @@ table td {
     text-align: center;
 }
 
+.custom-link a,
 td a {
     color: black;
 }
 
+.custom-link a:hover,
 td a:hover {
     color: rgb(255, 30, 30);
     transition: all 0.3s;

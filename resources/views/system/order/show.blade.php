@@ -1,5 +1,30 @@
 @extends('system.layouts.show')
 
+@section('back')
+    @if ($item->files()->exists() && $item->payment_status == 'unverified')
+        <x-system.modal :input="[
+            'modalTitle' => 'Receipt',
+            'btnTitle' => 'Receipt',
+            'btnColor' => 'success',
+            'route' => 'verify-payment',
+            'icon' => 'fas fa-file-invoice',
+            'method' => 'post',
+            'size' => 'large',
+            'submitBtn' => 'Verify',
+            'id' => 'uploadTeachers',
+        ]">
+            <x-slot name="body">
+                <div class="text-start">
+                    <input type="hidden" name="order_number" value="{{ $item->order_number }}">
+                    <img class="img-thumbnail" width="800px"
+                        src="{{ asset($item->files()->value('path') . '/' . $item->files()->value('title')) }}"
+                        alt="">
+                </div>
+            </x-slot>
+        </x-system.modal>
+    @endif
+@endsection
+
 @section('content-first-left')
     {{-- Order Code --}}
     <x-system.detail :input="[
@@ -43,19 +68,39 @@
     ]" />
 
 
-    {{-- Status --}}
+    {{-- Payment Status --}}
     <div class="row">
         <div class="col-sm-3">
-            <label for="name">Status</label>
+            <label for="name">Payment Status</label>
         </div>
         <div class="col-sm-9">
             <p>: &nbsp; &nbsp;
                 @if ($item->payment_status == 'unverified')
                     <span class="badge badge-warning">Unverified</span>
                 @elseif($item->payment_status == 'verified')
-                    <span class="badge badge-warning">Unverified</span>
+                    <span class="badge badge-success">Verified</span>
                 @elseif($item->payment_status == 'rejected')
                     <span class="badge badge-warning">Rejected</span>
+                @endif
+            </p>
+        </div>
+    </div>
+
+    {{-- Delivery Status --}}
+    <div class="row">
+        <div class="col-sm-3">
+            <label for="name">Delivery Status</label>
+        </div>
+        <div class="col-sm-9">
+            <p>: &nbsp; &nbsp;
+                @if ($item->delivery_status == 'pending')
+                    <span class="badge badge-warning">Pending</span>
+                @elseif($item->delivery_status == 'shipped')
+                    <span class="badge badge-info">Shipped</span>
+                @elseif($item->delivery_status == 'delivered')
+                    <span class="badge badge-success">Delivered</span>
+                @elseif($item->delivery_status == 'canceled')
+                    <span class="badge badge-danger">Canceled</span>
                 @endif
             </p>
         </div>

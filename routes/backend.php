@@ -110,6 +110,8 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //Order
         Route::resource('/orders', OrderController::class)->except('create');
+        Route::post('/verify-payment', [OrderController::class, 'verifyPayment'])->name('verify-payment');
+
 
         //Menu
         Route::resource('/menus', MenuController::class);

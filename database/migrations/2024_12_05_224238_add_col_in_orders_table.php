@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->enum('delivery_status', ['pending', 'shipped', 'delivered', 'cancelled'])->default('pending');
+            $table->foreignId('payment_verified_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->dateTime('payment_verified_at')->nullable();
         });
     }
 

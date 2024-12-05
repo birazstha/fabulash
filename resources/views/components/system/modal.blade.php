@@ -7,7 +7,7 @@
 
  <!-- Modal -->
  <div class="modal fade" id="{{ $input['id'] ?? '' }}" aria-labelledby="exampleModalLabel" aria-hidden="true">
-     <div class="modal-dialog">
+     <div class="modal-dialog {{ isset($input['size']) && $input['size'] == 'large' ? 'modal-lg' : '' }}">
          <div class="modal-content">
              <div class="modal-header">
                  <h5 class="modal-title" id="exampleModalLabel">
@@ -26,7 +26,7 @@
                      @if (!isset($input['isConfirmation']))
                          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                          <button type="submit"
-                             class="btn btn-primary btn-sm">{{ isset($input['submitBtn']) ? $input['submitBtn'] : 'Save' }}</button>
+                             class="btn btn-primary btn-sm action-btn">{{ isset($input['submitBtn']) ? $input['submitBtn'] : 'Save' }}</button>
                      @else
                          <button type="button" data-dismiss="modal" class="btn btn-primary btn-sm">Ok</button>
                      @endif

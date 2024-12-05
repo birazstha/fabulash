@@ -29,4 +29,16 @@ class OrderService extends Service
 
         return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
+
+    public function verifyPayment($request)
+    {
+        $order = $this->model->where('order_number', $request->order_number)->first();
+        $order->update([
+            'payment_verified_by' => authUser()->id,
+            'payment_verified_at' => Carbon::now()->toDateTimeString(),
+            'payment_status' => 'verified'
+        ]);
+
+        return $order->id;
+    }
 }

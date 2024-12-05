@@ -26,10 +26,11 @@
 @section('headings')
     <th>S.N</th>
     <th>Order ID</th>
-    <th>Customer Name</th>
+    <th>Customer</th>
     <th>Total Amount</th>
     <th>Order At</th>
     <th>Payment Status</th>
+    <th>Delivery Status</th>
     @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
         <th>Action</th>
     @endif
@@ -40,16 +41,29 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{!! $item->order_number ?? 'N/A' !!}</td>
-            <td>{{ $item->customer->name ?? 'N/A' }}</td>
+            <td>
+                <a href="{{ route('customers.show', $item->customer->id) }}"> {{ $item->customer->name ?? 'N/A' }}</a>
+            </td>
             <td>{{ convertToAmount($item->total_amount) ?? 'N/A' }}</td>
             <td>{{ convertToTime($item->created_at) ?? 'N/A' }}</td>
             <td>
                 @if ($item->payment_status == 'unverified')
                     <span class="badge badge-warning">Unverified</span>
                 @elseif($item->payment_status == 'verified')
-                    <span class="badge badge-warning">Unverified</span>
+                    <span class="badge badge-success">Verified</span>
                 @elseif($item->payment_status == 'rejected')
-                    <span class="badge badge-warning">Rejected</span>
+                    <span class="badge badge-danger">Rejected</span>
+                @endif
+            </td>
+            <td>
+                @if ($item->delivery_status == 'pending')
+                    <span class="badge badge-warning">Pending</span>
+                @elseif($item->delivery_status == 'shipped')
+                    <span class="badge badge-info">Shipped</span>
+                @elseif($item->delivery_status == 'delivered')
+                    <span class="badge badge-success">Delivered</span>
+                @elseif($item->delivery_status == 'canceled')
+                    <span class="badge badge-danger">Canceled</span>
                 @endif
             </td>
             @if (checkPermission($indexUrl . '/*' . '/edit', 'PUT') || checkPermission($indexUrl . '/*', 'DELETE'))
@@ -61,9 +75,6 @@
             @endif
         </tr>
     @endforeach
-
-
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 @endsection
 
 @section('js')
@@ -73,8 +84,6 @@
     <script>
         $(function() {
             const inputField = $('input[name="dates"]');
-    
-
             inputField.daterangepicker({
                 autoUpdateInput: false, // Prevents auto-population
                 opens: 'left',

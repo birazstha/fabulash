@@ -21,4 +21,5 @@ Route::get('/', function () {
 define('PAGINATE', 15);
 
 
+include('frontend.php');
 include('backend.php');

@@ -19,6 +19,9 @@ class OrderSeeder extends Seeder
 
     public function run()
     {
+
+        $this->model->truncate();
+
         $items = [
             [
                 'customer_id' => $this->customer->where('username', 'dibya_maharjan')->value('id'),

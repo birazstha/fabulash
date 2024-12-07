@@ -31,7 +31,6 @@ class EnquirySeeder extends Seeder
                 'message' => 'Hello! I am Ranju,from Bardibas. I wan to schedule a appointment for my nails. Can I get more info regarding it?'
             ],
 
-
         ];
 
         foreach ($items as $item) {

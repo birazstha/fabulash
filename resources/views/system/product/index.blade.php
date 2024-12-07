@@ -48,8 +48,15 @@
             <td>{{ $key + 1 }}</td>
             <td>{{ $item->title }}</td>
             <td>{{ $item->category->title }}</td>
-            <td>{{ convertToAmount($item->price) }}</td>
-            <td>{{ $item->stock }}</td>
+            <td>{{ convertToAmount($item->price) }} </td>
+            <td>
+                {!! $item->stock == 0
+                    ? '-'
+                    : ($item->stock < 5
+                        ? convertToQuantity($item->stock) . ' <i class="fas fa-exclamation text-danger"></i>'
+                        : convertToQuantity($item->stock)) !!}
+            </td>
+
             <td>{!! statusBadge($item, $indexUrl) !!}</td>
             <td>
                 @include('system.partials.editButton')

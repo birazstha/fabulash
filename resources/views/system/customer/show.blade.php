@@ -41,11 +41,6 @@
     <hr>
     <div class="d-flex justify-content-between align-items-center">
         <h3>Order History</h3>
-        <a href="{{ $indexUrl . '/create?product_id=' . $item->id }}" class="btn btn-info btn-sm">
-            <i class="fa fa-plus"></i>&nbsp; Add
-        </a>
-
-
     </div>
     <hr>
     <table class="table table-bordered">

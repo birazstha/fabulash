@@ -126,7 +126,7 @@
                     $(`input[name="cropped_${imageName}"]`).val(
                         base64data); // Set base64 data to the input field
                 }
-            });
+            }, 'image/jpeg', 0.5);
         });
     });
 </script>

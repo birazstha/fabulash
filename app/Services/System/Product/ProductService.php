@@ -2,20 +2,22 @@
 
 namespace App\Services\System\Product;
 
+use App\Models\Inventory;
 use App\Models\Product;
 use App\Services\Service;
 use App\Services\System\Category\CategoryService;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\File;
 
 class ProductService extends Service
 {
-    protected $categoryService;
+    protected $categoryService, $inventory;
 
-    public function __construct(Product $model, CategoryService $categoryService)
+    public function __construct(Product $model, CategoryService $categoryService, Inventory $inventory)
     {
         parent::__construct($model);
         $this->categoryService = $categoryService;
+        $this->inventory = $inventory;
     }
 
     public function getAllData($request)
@@ -37,6 +39,19 @@ class ProductService extends Service
             $query->where('sub_category_id', $request->sub_category_id);
         }
         return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
+    }
+
+    public function indexPageData(Request $request)
+    {
+        $data = $this->getAllData($request);
+        $data->transform(function ($product) {
+            $product->stock = $this->calculateStock($product->id);
+            return $product;
+        });
+
+        return  [
+            'items' => $data
+        ];
     }
 
 
@@ -62,5 +77,20 @@ class ProductService extends Service
 
             return $model->id;
         });
+    }
+
+    public function showPageData(Request $request, $id)
+    {
+        $item = $this->getItemById($id);
+        $item->stock = $this->calculateStock($id);
+        return  [
+            'item' => $item,
+        ];
+    }
+
+    public function calculateStock($productId)
+    {
+        $stockItems =  $this->inventory->where(['product_id' => $productId, 'transaction_type' => 'addition'])->get();
+        return collect($stockItems)->sum('quantity');
     }
 }

@@ -37,6 +37,7 @@
     <th>Title</th>
     <th>Category</th>
     <th>Price</th>
+    <th>Current Stock</th>
     <th>Status</th>
     <th>Action</th>
 @endsection
@@ -48,6 +49,7 @@
             <td>{{ $item->title }}</td>
             <td>{{ $item->category->title }}</td>
             <td>{{ convertToAmount($item->price) }}</td>
+            <td>{{ $item->stock }}</td>
             <td>{!! statusBadge($item, $indexUrl) !!}</td>
             <td>
                 @include('system.partials.editButton')

@@ -66,6 +66,11 @@ function convertToDate($date)
     return $dateTime->format('Y-m-d');
 }
 
+function convertToQuantity($qty)
+{
+    return $qty .' pc';
+}
+
 function formatter($name)
 {
     $name = str_replace('_id', '', $name);

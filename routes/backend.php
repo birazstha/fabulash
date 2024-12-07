@@ -106,7 +106,7 @@ Route::group(['namespace' => 'System', 'prefix' => 'system'], function () {
 
         //Inventory
         Route::resource('/inventories', InventoryController::class);
-        Route::post('/inventories/add', [InventoryController::class, 'addInventory'])->name('inventories.add');
+        Route::post('/inventories/manage', [InventoryController::class, 'manageInventory'])->name('inventories.manage');
 
         //Order
         Route::resource('/orders', OrderController::class)->except('create');

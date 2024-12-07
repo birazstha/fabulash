@@ -18,7 +18,7 @@
         ]" />
 
         <input type="hidden" id="old_sub_category_id" value="{{ isset($item) ? $item->sub_category_id : '' }}">
-        <input type="hidden" id="old_category_id" value="{{ isset($item) ? $item->subCategory->parent->id : '' }}">
+        {{-- <input type="hidden" id="old_category_id" value="{{ isset($item) ? $item->subCategory->parent->id : '' }}"> --}}
 
         {{-- Title --}}
         <x-system.input :input="[

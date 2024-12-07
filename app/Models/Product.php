@@ -43,9 +43,13 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-
     public function user()
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', true);
     }
 }

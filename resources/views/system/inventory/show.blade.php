@@ -1,8 +1,6 @@
 @extends('system.layouts.show')
 
 @section('back')
-
-
 @show
 
 @section('content-first-left')
@@ -39,7 +37,7 @@
                 'modalTitle' => 'Add Inventory',
                 'btnTitle' => 'Add',
                 'btnColor' => 'success',
-                'route' => 'inventories.add',
+                'route' => 'inventories.manage',
                 'icon' => 'fas fa-upload',
                 'method' => 'post',
                 'id' => 'uploadTeachers',
@@ -48,9 +46,14 @@
                     <div class="text-start">
                         <x-system.input :input="[
                             'name' => 'quantity',
+                            'type' => 'number',
                             'required' => true,
                             'isModal' => true,
                         ]" />
+
+                        <input type="hidden" value="add" name="task">
+                        <input type="hidden" value="{{ $item->id }}" name="product_id">
+
                     </div>
                 </x-slot>
             </x-system.modal>
@@ -69,9 +72,11 @@
                     <div class="text-start">
                         <x-system.input :input="[
                             'name' => 'quantity',
+                            'type' => 'number',
                             'required' => true,
                             'isModal' => true,
                         ]" />
+                        <input type="hidden" value="deduct" name="task">
                     </div>
                 </x-slot>
             </x-system.modal>

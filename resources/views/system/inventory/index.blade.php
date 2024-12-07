@@ -1,9 +1,5 @@
 @extends('system.layouts.index')
 
-@section('create')
-@endsection
-
-
 @section('search')
     <x-system.form :action="$indexUrl">
         <x-slot name="inputs">
@@ -19,7 +15,10 @@
 @section('headings')
     <th>S.N</th>
     <th>Product</th>
-    <th>Stock</th>
+    <th>Transaction Type</th>
+    <th>Quantity</th>
+    <th>User</th>
+    <th>Date</th>
     <th>Action</th>
 @endsection
 
@@ -28,10 +27,13 @@
         <tr>
             <td>{{ $key + 1 }}</td>
             <td>{!! showLink($item->product, 'products') !!}</td>
-            <td>{{ $item->current_stock }}</td>
+            <td>{{ $item->transaction_type }}</td>
+            <td>{{ $item->quantity }}</td>
+            <td>{{ $item->user->name }}</td>
+            <td>{{ convertToTime($item->created_at) }}</td>
             <td>
-                @include('system.partials.showButton')
-                
+                @include('system.partials.editButton')
+                @include('system.partials.deleteButton')
             </td>
         </tr>
     @endforeach

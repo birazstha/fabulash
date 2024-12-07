@@ -3,26 +3,46 @@
 namespace App\Services\System\Inventory;
 
 use App\Models\Inventory;
+use App\Models\Product;
 use App\Services\Service;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InventoryService extends Service
 {
-    public function __construct(Inventory $model)
+    protected $product;
+    public function __construct(Inventory $model, Product $product)
     {
         parent::__construct($model);
+        $this->product = $product;
     }
 
-    public function getAllData($request)
+    public function createPageData($request)
     {
-        $query = $this->query();
-        if (isset($request->keyword)) {
-            // $query->where('title', 'LIKE',  '%' . $request->keyword . '%');
+        return [
+            'products' => $this->product->active()->pluck('title', 'id')
+        ];
+    }
 
-            $query->whereHas('product', function ($query) use ($request) {
-                $query->where('title', 'LIKE', '%' . $request->keyword . '%');
-            });
-        }
+    public function editPageData($id)
+    {
+        return [
+            'item' => $this->getItemById($id),
+            'products' => $this->product->active()->pluck('title', 'id')
+        ];
+    }
 
-        return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
+    public function store($request)
+    {
+        return DB::transaction(function () use ($request) {
+            $data = $request->except('_token');
+            $data['user_id'] = authUser()->id;
+            $data['transaction_type'] = 'addition';
+            $this->model->create($data);
+            $product = $this->product->find($request->product_id);
+            $product->update([
+                'stock' => $product->stock + $request->quantity
+            ]);
+        });
     }
 }

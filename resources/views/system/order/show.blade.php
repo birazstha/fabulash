@@ -111,9 +111,9 @@
     <hr>
     <div class="d-flex justify-content-between align-items-center">
         <h3>Products</h3>
-        <a href="{{ $indexUrl . '/create?gallery_id=' . $item->id }}" class="btn btn-info btn-sm">
+        {{-- <a href="{{ $indexUrl . '/create?gallery_id=' . $item->id }}" class="btn btn-info btn-sm">
             <i class="fa fa-plus"></i>&nbsp; Add
-        </a>
+        </a> --}}
     </div>
     <hr>
     <table class="table table-bordered">

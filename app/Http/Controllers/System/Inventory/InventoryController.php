@@ -24,8 +24,9 @@ class InventoryController extends ResourceController
         return 'inventory';
     }
 
-    public function addInventory(Request $request)
+    public function manageInventory(Request $request)
     {
-        dd($request->all());
+        $this->service->manageInventory($request);
+        return back()->with(['success' => 'Inventory has been updated updated successfully.']);
     }
 }

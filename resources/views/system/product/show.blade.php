@@ -27,6 +27,12 @@
 @endsection
 
 @section('content-first-right')
+    {{-- Stock --}}
+    <x-system.detail :input="[
+        'label' => 'Stock',
+        'value' => convertToQuantity($item->stock) ?? '-',
+    ]" />
+
     {{-- Created At --}}
     <x-system.detail :input="[
         'label' => 'Created At',

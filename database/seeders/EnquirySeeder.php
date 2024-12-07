@@ -17,6 +17,7 @@ class EnquirySeeder extends Seeder
 
     public function run()
     {
+        $this->model->truncate();
         $items = [
             [
                 'name' => 'Urmila Shrestha',

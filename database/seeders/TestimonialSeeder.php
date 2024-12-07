@@ -16,6 +16,8 @@ class TestimonialSeeder extends Seeder
 
     public function run()
     {
+        $this->model->truncate();
+
         $items = [
             [
                 'name' => 'Dibya Maharjan',

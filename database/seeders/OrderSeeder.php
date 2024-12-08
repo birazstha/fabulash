@@ -37,6 +37,8 @@ class OrderSeeder extends Seeder
             ],
         ];
 
+        
+
         foreach ($items as $item) {
             $this->model->updateOrInsert(
                 ['order_number' => $item['order_number']],

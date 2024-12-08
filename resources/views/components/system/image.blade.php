@@ -102,14 +102,13 @@
 
         $modal.on('shown.bs.modal', function() {
             imageCropper = new Cropper(image, {
-                aspectRatio: 0,
-                viewMode: 3,
                 preview: `.preview${imageName}`
             });
         }).on('hidden.bs.modal', function() {
             imageCropper.destroy();
             imageCropper = null;
         });
+
 
         $(`#crop${imageName}`).click(function() {
             canvas = imageCropper.getCroppedCanvas();
@@ -121,7 +120,6 @@
                 reader.onloadend = function() {
                     var base64data = reader.result;
                     $modal.modal('hide');
-
                     $(`.cropped${imageName}`).removeClass('d-none').attr('src', base64data);
                     $(`input[name="cropped_${imageName}"]`).val(
                         base64data); // Set base64 data to the input field

@@ -11,15 +11,11 @@
 
 <body>
 
-    @php
-        $orderid = App\Models\Order::where('customer_id', 1)->value('order_number');
-    @endphp
-
     <div class="m-4">
         <h3>Upload Payment Receipt</h3>
         <form action="{{ route('uploadReceipt') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input type="hidden" name="order_number" value={{ $orderid }}>
+            <input type="hidden" name="order_number" value="ORD3187">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Receipt</label>
                 <input type="file" class="form-control" name="receipt">
@@ -29,9 +25,6 @@
             </div>
         </form>
     </div>
-
-
-
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

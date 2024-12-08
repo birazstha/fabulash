@@ -19,19 +19,18 @@ class OrderSeeder extends Seeder
 
     public function run()
     {
-        $this->model->truncate();
 
         $items = [
             [
                 'customer_id' => $this->customer->where('username', 'dibya_maharjan')->value('id'),
-                'order_number' => generateOrderId(),
+                'order_number' => 'ORD3187',
                 'total_amount' => 5000,
                 'delivery_address' => 'Endeavor Nepal, Link Marga',
                 'payment_status' => 'unverified',
             ],
             [
                 'customer_id' => $this->customer->where('username', 'sujata_bajracharya')->value('id'),
-                'order_number' => generateOrderId(),
+                'order_number' => 'ORD6188',
                 'total_amount' => 10000,
                 'delivery_address' => 'Pimbahal',
                 'payment_status' => 'unverified',

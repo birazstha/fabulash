@@ -15,6 +15,11 @@ class ProductController extends ResourceController
         $this->service = $service;
     }
 
+    public function storeValidationRequest()
+    {
+        return 'App\Http\Requests\System\ProductRequest';
+    }
+
     public function moduleName()
     {
         return 'products';

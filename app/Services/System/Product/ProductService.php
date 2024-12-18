@@ -65,6 +65,7 @@ class ProductService extends Service
     }
 
 
+
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
@@ -96,6 +97,7 @@ class ProductService extends Service
         $item->stock = $this->calculateStock($id);
         return  [
             'item' => $item,
+            'lashTrayId' => $this->categoryService->getCategoryBySlug('lash-tray'),
         ];
     }
 
@@ -110,7 +112,7 @@ class ProductService extends Service
         DB::transaction(function () use ($request, $id) {
             $data = $request->except('_token');
             $data['updated_by'] = authUser()->id;
-            $update = $this->getItemById($id);         
+            $update = $this->getItemById($id);
             $update->update($data);
         });
     }

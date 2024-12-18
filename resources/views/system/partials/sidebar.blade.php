@@ -72,6 +72,16 @@
         'permission' => checkPermission('enquiries', 'GET'),
     ]" />
 
+    {{-- Sliders --}}
+    <x-system.sidebar-item :input="[
+        'title' => 'Slider Management',
+        'route' => 'sliders',
+        'icon' => 'fas fa-images',
+        'permission' => checkPermission('sliders', 'GET'),
+    ]" />
+
+
+
     {{-- Basic Setup --}}
     <x-system.sidebar-item :input="[
         'title' => 'Basic Setup',
@@ -90,14 +100,6 @@
                 'route' => 'categories',
                 'icon' => 'fas fa-list',
                 'permission' => checkPermission('categories', 'GET'),
-            ],
-    
-            // Sliders
-            [
-                'title' => 'Slider Management',
-                'route' => 'sliders',
-                'icon' => 'fas fa-images',
-                'permission' => checkPermission('sliders', 'GET'),
             ],
     
             //Email Template

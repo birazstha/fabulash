@@ -20,8 +20,6 @@ class ResourceController extends Controller
         return '';
     }
 
-
-
     public function folderName()
     {
         return '';

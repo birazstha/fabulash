@@ -173,3 +173,10 @@ function generateSlug($string)
     $slug = trim($slug, '-');
     return $slug;
 }
+
+function jsonDecoder($jsonArray)
+{
+    if (is_array($jsonArray)) {
+        return implode(", ", $jsonArray);
+    }
+}

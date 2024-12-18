@@ -13,17 +13,31 @@
         'value' => $item->category->title ?? 'N/A',
     ]" />
 
-    {{-- Sub Category --}}
-    {{-- <x-system.detail :input="[
-        'label' => 'Sub Category',
-        'value' => $item->subCategory->title ?? 'N/A',
-    ]" /> --}}
-
     {{-- Price --}}
     <x-system.detail :input="[
         'label' => 'Price',
         'value' => convertToAmount($item->price) ?? 'N/A',
     ]" />
+
+    @if ($item->category_id == $lashTrayId)
+        {{-- Diameter --}}
+        <x-system.detail :input="[
+            'label' => 'Diameter',
+            'value' => jsonDecoder($item->diameter) ?? 'N/A',
+        ]" />
+
+        {{-- Curl --}}
+        <x-system.detail :input="[
+            'label' => 'Curl',
+            'value' => jsonDecoder($item->curl) ?? 'N/A',
+        ]" />
+
+        {{-- Length --}}
+        <x-system.detail :input="[
+            'label' => 'Length',
+            'value' => jsonDecoder($item->length) ?? 'N/A',
+        ]" />
+    @endif
 @endsection
 
 @section('content-first-right')

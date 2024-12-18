@@ -46,7 +46,9 @@
     @foreach ($items as $key => $item)
         <tr>
             <td>{{ $key + 1 }}</td>
-            <td>{{ $item->title }}</td>
+            <td>
+                <a href="{{ route('products.show', $item->id) }}">{{ $item->title }}</a>
+            </td>
             <td>{{ $item->category->title }}</td>
             <td>{{ convertToAmount($item->price) }} </td>
             <td>

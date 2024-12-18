@@ -17,9 +17,9 @@ class OrderProductSeeder extends Seeder
     public function run()
     {
         $this->model->truncate();
-        
+
         $items = [
-            // Dibya's Order
+            // Urmila's Order
             [
                 'order_id' => 1,
                 'product_id' => 1, // Steady

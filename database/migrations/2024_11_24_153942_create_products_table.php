@@ -15,9 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->integer('rank')->nullable();
+            $table->string('slug')->unique();
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
             $table->integer('price');
+            $table->json('length')->nullable();
+            $table->json('curl')->nullable();
+            $table->json('diameter')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->foreignId('sub_category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->boolean('status');

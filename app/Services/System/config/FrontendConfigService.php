@@ -19,29 +19,63 @@ class FrontendConfigService extends Service
 
     public function store($request)
     {
-        dd($request->all());
-
         DB::transaction(function () use ($request) {
-            foreach ($request->except('_token', 'file') as $key => $value) {
-                $this->model->updateOrCreate(
+
+            $data = $request->except('_token');
+            foreach ($data as $key => $value) {
+                $model = $this->model->updateOrCreate(
                     ['key' => $key],
                     ['value' => $value]
                 );
             }
-            if ($request->file) {
-                foreach ($request->file as $key => $file) {
+
+            $data['images'] = [
+                "header_logo" => $request->cropped_header_logo,
+                "footer_logo" => $request->cropped_footer_logo,
+            ];
+
+
+            if ($data['images']) {
+                foreach ($data['images'] as $key => $image) {
                     $keyExists = $this->model->where('key', $key)->first();
                     if (!$keyExists) {
                         $model = $this->model->create(
                             ['key' => $key],
                             ['value' => '']
                         );
-                        $this->storeImage($file, 'uploads/' . $request->folder, $model);
+                        $fileData = [
+                            'file' => $image,
+                            'model' => $model,
+                            'path' => 'uploads/' . $this->getFolderName($request->folder),
+                        ];
+
+
+                        $this->storeBase64Image($fileData);
                     } else {
-                        $this->updateImage($file, 'uploads/' . $request->folder, $keyExists);
+                        $this->updateImage($image, 'uploads/' . $request->folder, $keyExists);
                     }
                 }
             }
+
+            // if ($request->cropped_header_logo) {
+            //     $fileData = [
+            //         'file' => $request->cropped_header_logo,
+            //         'model' => $model,
+            //         'path' => 'uploads/' . $this->getFolderName($request->folder),
+            //     ];
+
+            //     $this->storeBase64Image($fileData);
+            // }
+
+            // if ($request->cropped_footer_logo) {
+            //     $fileData = [
+            //         'file' => $request->cropped_footer_logo,
+            //         'model' => $model,
+            //         'path' => 'uploads/' . $this->getFolderName($request->folder),
+            //     ];
+
+            //     $this->storeBase64Image($fileData);
+            // }
         });
     }
 

@@ -8,18 +8,23 @@
             </span>
         </label>
 
+       
         <div class="col-10">
             <div class="">
                 <input type="file" class="{{ $input['name'] }} form-control" accept="image/*"
                     {{ isset($input['required']) && $input['required'] == 'true' ? 'required' : '' }}>
                 <div>
                     @php
-                        $filePath = isset($input['value'])
-                            ? $input['value']->value('path') . '/' . $input['value']->value('title')
-                            : null;
+                        // $filePath = isset($input['value'])
+                        //     ? $input['value']->value('path') . '/' . $input['value']->value('title')
+                        //     : null;
+
+                        // $filePath = isset($input['isConfig'])
+                        //     ? ''
+                        //     : $input['value']->value('path') . '/' . $input['value']->value('title');
                     @endphp
 
-                    <img src="{{ asset($filePath) }}" alt=""
+                    <img src="" alt=""
                         class="cropped{{ $input['name'] }} {{ isset($filePath) ? '' : 'd-none' }} img-thumbnail mt-2"
                         width="200px">
                     <input type="hidden" name="cropped_{{ $input['name'] }}">

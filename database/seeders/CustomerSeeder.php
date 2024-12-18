@@ -20,12 +20,12 @@ class CustomerSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Dibya Maharjan',
-                'username' => 'dibya_maharjan',
+                'name' => 'Urmila Shrestha',
+                'username' => 'urmila_shrestha',
                 'contact_number' => '9876543210',
-                'address' => 'Bosigaun, Kathmandu',
-                'password' => Hash::make('Dibya@123'),
-                'email' => 'dibyamaharzn21@gmail.com',
+                'address' => 'Koteshwor, Kathmandu',
+                'password' => Hash::make('Urmila@123'),
+                'email' => 'urmila@gmail.com',
                 'google_avatar' => null,
 
             ],

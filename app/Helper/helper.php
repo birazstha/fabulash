@@ -11,6 +11,7 @@ function getConfig($slug)
     return Config::where('slug', $slug)->value('value') ?? '';
 }
 
+
 function statusBadge($item, $indexUrl)
 {
     return $item->status ? '<a class="badge badge-success" href="' . $indexUrl . '/change-status/' . $item->id  . '">' . 'Active' . '</a>' : '<a class="badge badge-danger" href="' . $indexUrl . '/change-status/' . $item->id  . '">' . 'Inactive' . '</a>';
@@ -68,11 +69,20 @@ function convertToDate($date)
 
 function convertToQuantity($qty)
 {
-    return $qty .' pc';
+    return $qty . ' pc';
 }
 
 function formatter($name)
 {
+    // Extract the content inside square brackets
+    preg_match('/\[(.*?)\]/', $name, $matches);
+
+    // If a match is found, return it
+    if (isset($matches[1])) {
+        return $matches[1];
+    }
+
+    // Otherwise, process as usual
     $name = str_replace('_id', '', $name);
     $name = preg_replace('/\[[^\]]*\]/', '', $name);
     $formattedName = ucwords(str_replace('_', ' ', $name));
@@ -83,6 +93,7 @@ function formatter($name)
 function fileName($slug)
 {
     return FrontendConfig::where('key', $slug)->first();
+    dd($test->files->value('path'));
 }
 
 function frontendConfig($key, $isFile = false)

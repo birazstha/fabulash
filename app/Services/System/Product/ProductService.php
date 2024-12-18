@@ -28,15 +28,7 @@ class ProductService extends Service
         }
 
         if (isset($request->category_id)) {
-            // $query->whereHas('subCategory', function ($subQuery) use ($request) {
-            //     $subQuery->where('parent_id', $request->category_id);
-            // });
-
             $query->where('category_id', $request->category_id);
-        }
-
-        if (isset($request->sub_category_id)) {
-            $query->where('sub_category_id', $request->sub_category_id);
         }
         return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
@@ -55,10 +47,29 @@ class ProductService extends Service
     }
 
 
+    public function createPageData($request)
+    {
+        return [
+            'status' => $this->status(),
+            'lashTrayId' => $this->categoryService->getCategoryBySlug('lash-tray')
+        ];
+    }
+
+    public function editPageData($id)
+    {
+        return [
+            'item' => $this->getItemById($id),
+            'lashTrayId' => $this->categoryService->getCategoryBySlug('lash-tray'),
+            'status' => $this->status()
+        ];
+    }
+
+
     public function store($request)
     {
         return DB::transaction(function () use ($request) {
             $data = $request->except('_token');
+            $data['slug'] = generateSlug($request->name);
             if (isset($request->productId)) {
                 $model = $this->getItemById($request->productId);
             } else {
@@ -92,5 +103,15 @@ class ProductService extends Service
     {
         $stockItems =  $this->inventory->where(['product_id' => $productId, 'transaction_type' => 'addition'])->get();
         return collect($stockItems)->sum('quantity');
+    }
+
+    public function update($request, $id)
+    {
+        DB::transaction(function () use ($request, $id) {
+            $data = $request->except('_token');
+            $data['updated_by'] = authUser()->id;
+            $update = $this->getItemById($id);         
+            $update->update($data);
+        });
     }
 }

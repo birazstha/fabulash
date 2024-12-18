@@ -4,3 +4,9 @@ mix.js(
     "resources/js/categories.js",
     "public/compiledCssAndJs/js/categories.js"
 );
+
+mix.js("resources/js/app.js", "public/js").postCss(
+    "resources/css/app.css",
+    "public/css",
+    [require("tailwindcss")]
+);

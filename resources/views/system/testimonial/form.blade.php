@@ -28,7 +28,7 @@
     <x-system.image :input="[
         'name' => 'photo',
         'required' => isset($item) ? false : true,
-        'value' => $item->files ?? null,
+        'value' => $item->dsfg ?? null,
         'folder' => $indexUrl,
     ]" />
 

@@ -42,6 +42,7 @@ class ProductSeeder extends Seeder
             ['category_id' => $categories['single-use'], 'title' => 'Microbud', 'rank' => 3, 'price' => 200],
             ['category_id' => $categories['single-use'], 'title' => 'Spoolie', 'rank' => 4, 'price' => 100],
             ['category_id' => $categories['single-use'], 'title' => 'Glue Ring', 'rank' => 5, 'price' => 50],
+            ['category_id' => $categories['single-use'], 'title' => 'Applicator', 'rank' => 6, 'price' => 50],
 
             // Liquids
             ['category_id' => $categories['liquids'], 'title' => 'Steady', 'rank' => 1, 'price' => 2500],
@@ -50,6 +51,7 @@ class ProductSeeder extends Seeder
             ['category_id' => $categories['liquids'], 'title' => 'Super Bonder', 'rank' => 4, 'price' => 2200],
             ['category_id' => $categories['liquids'], 'title' => 'Lash Primer', 'rank' => 5, 'price' => 1500],
             ['category_id' => $categories['liquids'], 'title' => 'Lash Serum', 'rank' => 6, 'price' => 3000],
+            ['category_id' => $categories['liquids'], 'title' => 'Lash Shampoo', 'rank' => 7, 'price' => 3000],
 
             // Lash Tray
             ['category_id' => $categories['lash-tray'], 'title' => 'Easy Fans', 'rank' => 1, 'price' => 5000],
@@ -66,6 +68,7 @@ class ProductSeeder extends Seeder
                 [
                     'title' => $item['title'],
                     'rank' => $item['rank'],
+                    'slug' => generateSlug($item['title']),
                     'short_description' => "Short description for {$item['title']}.",
                     'description' => "Detailed description for {$item['title']}.",
                     'price' => $item['price'],

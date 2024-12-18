@@ -113,11 +113,17 @@ trait FileTrait
 
     public function storeBase64Image($fileData)
     {
+
         // Extracting the image extension of image.
         $imageExtension = explode('/', mime_content_type($fileData['file']))[1];
+
+
         $imageName = time() . '_' . uniqid() . '.' . $imageExtension;
+
+
         // Decode the base64 data to binary
         $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $fileData['file']));
+
 
         // Define the upload directory path
         $uploadPath = public_path($fileData['path']);

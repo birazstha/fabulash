@@ -14,7 +14,13 @@ class Product extends Model
 
     public $guarded = ['id'];
 
-    protected static $logName = 'Category';
+    protected static $logName = 'Product';
+
+    protected $casts = [
+        'diameter' => 'json',
+        'curl' => 'json',
+        'length' => 'json',
+    ];
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -26,16 +32,6 @@ class Product extends Model
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');
-    }
-
-    public function subCategories()
-    {
-        return $this->hasMany(self::class, 'parent_id', 'id');
-    }
-
-    public function subCategory()
-    {
-        return $this->belongsTo(Category::class);
     }
 
     public function category()

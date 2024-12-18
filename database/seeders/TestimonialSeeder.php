@@ -20,7 +20,7 @@ class TestimonialSeeder extends Seeder
 
         $items = [
             [
-                'name' => 'Dibya Maharjan',
+                'name' => 'Urmila Shrestha',
                 'words' => 'Fabulash has completely transformed my self-care routine! Their pedicure services are amazing, and the team is so friendly and professional. Highly recommended!',
                 'rank' => 1,
             ],

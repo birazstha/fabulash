@@ -35,8 +35,9 @@
  {{-- Header Logo --}}
  <x-system.image :input="[
      'name' => 'header_logo',
+     'isConfig' => true,
      'required' => isset($item) ? false : true,
-     'value' => null,
+     'value' => fileName('header_logo') ?? null,
      'folder' => $indexUrl,
  ]" />
 
@@ -44,7 +45,7 @@
  <x-system.image :input="[
      'name' => 'footer_logo',
      'required' => isset($item) ? false : true,
-     'value' => null,
+     'value' => fileName('footer_logo') ?? null,
      'folder' => $indexUrl,
  ]" />
 

@@ -22,7 +22,7 @@ class OrderSeeder extends Seeder
 
         $items = [
             [
-                'customer_id' => $this->customer->where('username', 'dibya_maharjan')->value('id'),
+                'customer_id' => $this->customer->where('username', 'urmila_shrestha')->value('id'),
                 'order_number' => 'ORD3187',
                 'total_amount' => 5000,
                 'delivery_address' => 'Endeavor Nepal, Link Marga',
@@ -38,7 +38,6 @@ class OrderSeeder extends Seeder
         ];
 
         
-
         foreach ($items as $item) {
             $this->model->updateOrInsert(
                 ['order_number' => $item['order_number']],

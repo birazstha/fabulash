@@ -22,5 +22,9 @@ class CategoryService extends Service
         $query->whereNull('parent_id');
         return $query->orderBy('updated_at', 'DESC')->paginate(PAGINATE);
     }
-    
+
+    public function getCategoryBySlug($slug)
+    {
+        return $this->model->where('slug',$slug)->value('id');
+    }
 }

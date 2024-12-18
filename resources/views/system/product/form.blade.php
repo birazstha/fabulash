@@ -6,19 +6,9 @@
         <x-system.select :input="[
             'name' => 'category_id',
             'options' => $categories ?? [],
-            'value' => $item->subCategory->parent->id ?? old('category_id'),
+            'value' => $item->category_id ?? old('category_id'),
             'autofocus' => true,
         ]" />
-
-        {{-- Sub Category --}}
-        <x-system.select :input="[
-            'name' => 'sub_category_id',
-            'options' => [],
-            'value' => $item->sub_category_id ?? (old('sub_category_id') ?? request()->moduleId),
-        ]" />
-
-        <input type="hidden" id="old_sub_category_id" value="{{ isset($item) ? $item->sub_category_id : '' }}">
-        {{-- <input type="hidden" id="old_category_id" value="{{ isset($item) ? $item->subCategory->parent->id : '' }}"> --}}
 
         {{-- Title --}}
         <x-system.input :input="[
@@ -38,6 +28,29 @@
             'value' => $item->description ?? old('description'),
         ]" />
 
+        <div class="toggle-dcl {{ isset($item) && $item->category_id == $lashTrayId ? '' : 'd-none' }}">
+            {{-- Diameter --}}
+            <x-system.checkbox :input="[
+                'name' => 'diameter',
+                'options' => config('lashTrayData.diameter'),
+                'value' => $item->diameter ?? [],
+            ]" />
+
+            {{-- Curl --}}
+            <x-system.checkbox :input="[
+                'name' => 'curl',
+                'options' => config('lashTrayData.curl'),
+                'value' => $item->curl ?? [],
+            ]" />
+
+            {{-- Length --}}
+            <x-system.checkbox :input="[
+                'name' => 'length',
+                'options' => config('lashTrayData.length'),
+                'value' => $item->length ?? [],
+            ]" />
+        </div>
+
         {{-- Price --}}
         <x-system.input :input="[
             'name' => 'price',
@@ -45,7 +58,8 @@
             'value' => $item->price ?? old('price'),
         ]" />
 
-        {{-- Price --}}
+
+        {{-- Rank --}}
         <x-system.input :input="[
             'name' => 'rank',
             'type' => 'number',
@@ -287,7 +301,19 @@
 
 
         });
-    </script>
 
-    <script src="{{ asset('compiledCssAndJs/js/categories.js') }}"></script>
+
+
+        //Toggle Lash Tray Data
+
+        $(document).on('change', '#category_id', function() {
+            let categoryId = $(this).val();
+            let lashTrayId = "{{ $lashTrayId }}";
+            if (categoryId === lashTrayId) {
+                $('.toggle-dcl').removeClass('d-none');
+            } else {
+                $('.toggle-dcl').addClass('d-none');
+            }
+        });
+    </script>
 @endsection

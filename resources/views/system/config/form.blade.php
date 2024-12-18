@@ -1,7 +1,5 @@
 @extends('system.layouts.form')
 
-
-
 @section('form')
     {{-- Label --}}
     <x-system.input :input="[
